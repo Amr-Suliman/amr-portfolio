@@ -157,63 +157,38 @@ export default function Hero() {
   ];
 
   const containerVariants: Variants = {
-
     hidden: {
-      opacity: 0,
+      opacity: 0
     },
-
 
     visible: {
-
       opacity: 1,
-
       transition: {
-
-        staggerChildren: 0.12,
-
-      },
-
-    },
-
+        staggerChildren: 0.12
+      }
+    }
   };
-
 
 
   const itemVariants: Variants = {
 
-
     hidden: {
-
       opacity: 0,
-
-      y: 30,
-
+      y: 30
     },
-
-
 
     visible: {
-
-
       opacity: 1,
-
-
       y: 0,
 
-
       transition: {
-
         duration: 0.7,
-
-        ease: [0.25, 0.1, 0.25, 1],
-
-      },
-
-
-    },
-
+        ease: "easeOut"
+      }
+    }
 
   };
+
   return (
     <section className="relative flex min-h-screen items-center overflow-hidden bg-[#0a0000]">
       {/* ── Particle Network ── */}
@@ -308,15 +283,34 @@ export default function Hero() {
             <a
               href="/resume/Amr-Suleiman-CV.pdf"
               download
-              className="group relative inline-flex h-13 items-center justify-center overflow-hidden rounded-xl border border-red-500/60 bg-red-950/30 px-8 py-3 font-semibold text-white transition-all duration-300 hover:scale-105 hover:border-red-400 hover:bg-red-900/40 hover:shadow-[0_0_40px_rgba(192,57,43,0.6)]"
+              className="group relative inline-flex h-13 items-center justify-center overflow-hidden  border border-red-500/60 bg-red-950/30 px-8 py-3 font-semibold text-white transition-all duration-300 hover:scale-105 hover:border-red-400 hover:bg-red-900/40 hover:shadow-[0_0_40px_rgba(192,57,43,0.6)]"
             >
               <span className="relative z-10">Download CV</span>
               <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/5 to-transparent transition-transform duration-500 group-hover:translate-x-full" />
             </a>
+            <a
+              href="/resume/Amr-ElGohary-CV.pdf"
+              download
+              className="
+              group relative inline-flex
+              h-14 items-center justify-center
+              border border-red-500/60
+              bg-black/30
+              px-10
+              font-semibold
+              text-white
+              transition-all duration-300
+              hover:scale-105
+              hover:border-red-400
+              hover:shadow-[0_0_40px_rgba(255,0,0,0.9)]
+            "
+            >
+              Download CV
+            </a>
 
             <a
               href="#projects"
-              className="inline-flex h-13 items-center justify-center rounded-xl border border-white/10 bg-white/5 px-8 py-3 font-semibold text-gray-300 backdrop-blur-sm transition-all duration-300 hover:border-white/20 hover:text-white"
+              className="inline-flex h-13 items-center justify-center border border-white/10 bg-white/5 px-8 py-3 font-semibold text-gray-300 backdrop-blur-sm transition-all duration-300 hover:border-white/20 hover:text-white"
             >
               View Projects
             </a>

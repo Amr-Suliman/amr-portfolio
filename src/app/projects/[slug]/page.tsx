@@ -1,7 +1,23 @@
-import React from 'react'
+interface ProjectPageProps {
+  params: {
+    slug: string;
+  };
+}
 
-export default function page() {
+export default function ProjectDetails({
+  params,
+}: ProjectPageProps) {
   return (
-    <div>page</div>
-  )
+    <main className="flex min-h-screen items-center justify-center">
+      <div className="text-center">
+        <h1 className="mb-4 text-5xl font-bold capitalize">
+          {params.slug}
+        </h1>
+
+        <p className="text-neutral-400">
+          Project details coming soon...
+        </p>
+      </div>
+    </main>
+  );
 }
