@@ -2,8 +2,13 @@
 
 import { useEffect, useState } from "react";
 
-export function useMousePosition() {
-  const [mouse, setMouse] = useState({
+export type NormalizedMouse = {
+  x: number;
+  y: number;
+};
+
+export function useMousePosition(): NormalizedMouse {
+  const [mouse, setMouse] = useState<NormalizedMouse>({
     x: 0,
     y: 0,
   });
@@ -11,8 +16,8 @@ export function useMousePosition() {
   useEffect(() => {
     const move = (e: MouseEvent) => {
       setMouse({
-        x: e.clientX,
-        y: e.clientY,
+        x: (e.clientX / window.innerWidth) * 2 - 1,
+        y: -(e.clientY / window.innerHeight) * 2 + 1,
       });
     };
 

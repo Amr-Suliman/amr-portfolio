@@ -185,55 +185,44 @@ function GlowingSphere() {
   );
 }
 
-function SceneContent({ mouse }: HeroSceneProps) {
+function SceneContent({ mouse }: { mouse: NormalizedMouse }) {
   return (
     <>
-      <color attach="background" args={["#030008"]} />
-      <fog attach="fog" args={["#030008", 8, 22]} />
+      <ambientLight intensity={0.8} />
 
-      <ambientLight intensity={0.15} />
-      <pointLight position={[5, 5, 5]} color="#f43f5e" intensity={2} />
-      <pointLight position={[-5, -3, 3]} color="#8b5cf6" intensity={1.2} />
-      <pointLight position={[0, -5, -2]} color="#f59e0b" intensity={0.6} />
-
-      <Stars
-        radius={80}
-        depth={40}
-        count={4000}
-        factor={3.5}
-        saturation={0.2}
-        fade
-        speed={0.5}
-      />
-
-      <Sparkles
-        count={60}
-        scale={[14, 10, 14]}
-        size={2.5}
-        speed={0.25}
-        color="#f43f5e"
-        opacity={0.6}
-      />
-
-      <Sparkles
-        count={40}
-        scale={[10, 8, 10]}
-        size={1.8}
-        speed={0.4}
-        color="#8b5cf6"
-        opacity={0.4}
+      <directionalLight
+        position={[5, 5, 5]}
+        intensity={2}
       />
 
       <ParticleNetwork mouse={mouse} />
+
       <FloatingTorusKnot mouse={mouse} />
+
       <FloatingIcosahedron mouse={mouse} />
+
       <FloatingRing mouse={mouse} />
+
       <GlowingSphere />
+
+      <Sparkles
+        count={80}
+        size={2}
+        speed={0.3}
+      />
+
+      <Stars
+        radius={100}
+        depth={50}
+        count={3000}
+        factor={4}
+      />
 
       <CameraRig mouse={mouse} />
     </>
   );
 }
+
 
 export default function HeroScene({ mouse }: HeroSceneProps) {
   return (

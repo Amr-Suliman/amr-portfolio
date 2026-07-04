@@ -2,145 +2,59 @@
 
 import Image from "next/image";
 import { motion, Variants } from "framer-motion";
-import { useEffect, useRef } from "react";
-import {
-  FaGithub,
-  FaLinkedin,
-  FaWhatsapp,
-  FaReact,
-  FaNodeJs,
-} from "react-icons/fa";
-import {
-  SiNextdotjs,
-  SiTypescript,
-  SiTailwindcss,
-  SiFramer,
-} from "react-icons/si";
+import { FaGithub, FaLinkedin, FaWhatsapp } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 
-/* ─── Particle Canvas ─── */
-function ParticleCanvas() {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
-
-  useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = canvas.getContext("2d");
-    if (!ctx) return;
-
-    let animId: number;
-    const resize = () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    };
-    resize();
-    window.addEventListener("resize", resize);
-
-    const COUNT = 80;
-    const particles = Array.from({ length: COUNT }, () => ({
-      x: Math.random() * canvas.width,
-      y: Math.random() * canvas.height,
-      vx: (Math.random() - 0.5) * 0.4,
-      vy: (Math.random() - 0.5) * 0.4,
-      r: Math.random() * 1.5 + 0.5,
-      alpha: Math.random() * 0.5 + 0.2,
-    }));
-
-    const LINK_DIST = 130;
-
-    const tick = () => {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-      for (const p of particles) {
-        p.x += p.vx;
-        p.y += p.vy;
-        if (p.x < 0) p.x = canvas.width;
-        if (p.x > canvas.width) p.x = 0;
-        if (p.y < 0) p.y = canvas.height;
-        if (p.y > canvas.height) p.y = 0;
-
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(192,57,43,${p.alpha})`;
-        ctx.fill();
-      }
-
-      for (let i = 0; i < particles.length; i++) {
-        for (let j = i + 1; j < particles.length; j++) {
-          const dx = particles[i].x - particles[j].x;
-          const dy = particles[i].y - particles[j].y;
-          const d = Math.sqrt(dx * dx + dy * dy);
-          if (d < LINK_DIST) {
-            ctx.beginPath();
-            ctx.moveTo(particles[i].x, particles[i].y);
-            ctx.lineTo(particles[j].x, particles[j].y);
-            ctx.strokeStyle = `rgba(192,57,43,${0.12 * (1 - d / LINK_DIST)})`;
-            ctx.lineWidth = 0.6;
-            ctx.stroke();
-          }
-        }
-      }
-
-      animId = requestAnimationFrame(tick);
-    };
-    tick();
-
-    return () => {
-      cancelAnimationFrame(animId);
-      window.removeEventListener("resize", resize);
-    };
-  }, []);
-
-  return (
-    <canvas
-      ref={canvasRef}
-      className="absolute inset-0 z-0 opacity-60"
-    />
-  );
-}
-
-/* ─── Orbit Icon ─── */
+/* ─── Orbit Icon: each icon circles independently at its own speed ─── */
 interface OrbitIconProps {
-  icon: React.ReactNode;
-  angle: number;
-  radius: number;
-  duration: number;
-  delay?: number;
+  src: string;
+  alt: string;
   color: string;
+  radius: number;
+  startAngle: number;
+  duration: number;
+  direction?: 1 | -1;
 }
 
-function OrbitIcon({ icon, angle, radius, duration, delay = 0, color }: OrbitIconProps) {
-  const rad = (angle * Math.PI) / 180;
-  const x = Math.cos(rad) * radius;
-  const y = Math.sin(rad) * radius;
-
+function OrbitIcon({ src, alt, color, radius, startAngle, duration, direction = 1 }: OrbitIconProps) {
   return (
     <motion.div
-      className="absolute"
+      className="absolute left-1/2 top-1/2"
       style={{
-        left: `calc(50% + ${x}px)`,
-        top: `calc(50% + ${y}px)`,
-        transform: "translate(-50%, -50%)",
+        width: radius * 2,
+        height: radius * 2,
+        marginLeft: -radius,
+        marginTop: -radius,
       }}
-      animate={{ rotate: -360 }}
-      transition={{
-        duration,
-        repeat: Infinity,
-        ease: "linear",
-        delay,
-      }}
+      initial={{ rotate: startAngle }}
+      animate={{ rotate: startAngle + direction * 360 }}
+      transition={{ duration, repeat: Infinity, ease: "linear" }}
     >
-      <div
-        className="flex h-11 w-11 items-center justify-center rounded-full border text-xl shadow-lg"
-        style={{
-          background: `${color}18`,
-          borderColor: `${color}50`,
-          color: color,
-          boxShadow: `0 0 18px ${color}40`,
-        }}
+      <motion.div
+        className="absolute"
+        style={{ left: "50%", top: 0, transform: "translate(-50%, -50%)" }}
+        initial={{ rotate: -startAngle }}
+        animate={{ rotate: -startAngle - direction * 360 }}
+        transition={{ duration, repeat: Infinity, ease: "linear" }}
       >
-        {icon}
-      </div>
+        <div className="flex h-12 w-12 items-center justify-center rounded-full shadow-lg" title={alt}>
+          <div
+            style={{
+              width: 100,
+              height: 100,
+              backgroundColor: color,
+              WebkitMaskImage: `url(${src})`,
+              maskImage: `url(${src})`,
+              WebkitMaskSize: "contain",
+              maskSize: "contain",
+              WebkitMaskRepeat: "no-repeat",
+              maskRepeat: "no-repeat",
+              WebkitMaskPosition: "center",
+              maskPosition: "center",
+            }}
+          />
+        </div>
+      </motion.div>
     </motion.div>
   );
 }
@@ -148,12 +62,16 @@ function OrbitIcon({ icon, angle, radius, duration, delay = 0, color }: OrbitIco
 /* ─── Main Hero ─── */
 export default function Hero() {
   const techIcons = [
-    { icon: <FaReact />, angle: 0, color: "#61DAFB" },
-    { icon: <SiNextdotjs />, angle: 60, color: "#ffffff" },
-    { icon: <SiTypescript />, angle: 120, color: "#3178C6" },
-    { icon: <SiTailwindcss />, angle: 180, color: "#38BDF8" },
-    { icon: <SiFramer />, angle: 240, color: "#E847B0" },
-    { icon: <FaNodeJs />, angle: 300, color: "#68A063" },
+    { src: "/icons/react.svg", alt: "React", color: "#61DAFB", radius: 260, startAngle: 0, duration: 20, direction: 1 as const },
+    { src: "/icons/nextdotjs.svg", alt: "Next.js", color: "#000000", radius: 210, startAngle: 33, duration: 14, direction: -1 as const },
+    { src: "/icons/typescript.svg", alt: "TypeScript", color: "#3178C6", radius: 270, startAngle: 66, duration: 24, direction: 1 as const },
+    { src: "/icons/tailwindcss.svg", alt: "Tailwind CSS", color: "#06B6D4", radius: 190, startAngle: 99, duration: 11, direction: -1 as const },
+    { src: "/icons/javascript.svg", alt: "JavaScript", color: "#F7DF1E", radius: 250, startAngle: 132, duration: 22, direction: 1 as const },
+    { src: "/icons/github.svg", alt: "GitHub", color: "#181717", radius: 245, startAngle: 198, duration: 19, direction: 1 as const },
+    { src: "/icons/html5.svg", alt: "HTML5", color: "#E34F26", radius: 200, startAngle: 231, duration: 13, direction: -1 as const },
+    { src: "/icons/css.svg", alt: "CSS3", color: "#663399", radius: 265, startAngle: 264, duration: 25, direction: 1 as const },
+    { src: "/icons/bootstrap.svg", alt: "Bootstrap", color: "#7952B3", radius: 215, startAngle: 297, duration: 15, direction: -1 as const },
+    { src: "/icons/figma.svg", alt: "Figma", color: "#F24E1E", radius: 235, startAngle: 330, duration: 18, direction: 1 as const },
   ];
 
   const containerVariants: Variants = {
@@ -191,49 +109,10 @@ export default function Hero() {
 
   return (
     <section className="relative flex min-h-screen items-center overflow-hidden bg-[#0a0000]">
-      {/* ── Particle Network ── */}
-      <ParticleCanvas />
-
-      {/* ── Aurora Blobs ── */}
-      <motion.div
-        className="absolute left-[-10%] top-[-5%] h-[500px] w-[500px] rounded-full blur-[160px]"
-        style={{ background: "rgba(192,57,43,0.18)" }}
-        animate={{ x: [0, 60, 0], y: [0, 40, 0] }}
-        transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
-      />
-      <motion.div
-        className="absolute bottom-[-10%] right-[-5%] h-[450px] w-[450px] rounded-full blur-[140px]"
-        style={{ background: "rgba(120,20,10,0.22)" }}
-        animate={{ x: [0, -50, 0], y: [0, -30, 0] }}
-        transition={{ duration: 15, repeat: Infinity, ease: "easeInOut", delay: 3 }}
-      />
-      <motion.div
-        className="absolute left-1/2 top-1/3 h-[300px] w-[300px] -translate-x-1/2 rounded-full blur-[120px]"
-        style={{ background: "rgba(180,30,20,0.12)" }}
-        animate={{ scale: [1, 1.3, 1], opacity: [0.6, 1, 0.6] }}
-        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-      />
-
-      {/* ── Grid Overlay ── */}
+      {/* ── Simple background glow ── */}
       <div
-        className="absolute inset-0 z-[1] opacity-[0.04]"
-        style={{
-          backgroundImage:
-            "linear-gradient(rgba(255,255,255,0.15) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.15) 1px, transparent 1px)",
-          backgroundSize: "50px 50px",
-        }}
-      />
-
-      {/* ── Scanline Shimmer ── */}
-      <motion.div
-        className="pointer-events-none absolute inset-0 z-[1]"
-        style={{
-          background:
-            "linear-gradient(to bottom, transparent 0%, rgba(192,57,43,0.03) 50%, transparent 100%)",
-          backgroundSize: "100% 6px",
-        }}
-        animate={{ backgroundPositionY: ["0px", "6px"] }}
-        transition={{ duration: 0.15, repeat: Infinity, ease: "linear" }}
+        className="pointer-events-none absolute left-[-10%] top-[-10%] h-[600px] w-[600px] rounded-full blur-[160px]"
+        style={{ background: "rgba(192,57,43,0.12)" }}
       />
 
       {/* ── Content ── */}
@@ -254,7 +133,7 @@ export default function Hero() {
           </motion.p>
 
           <motion.p variants={itemVariants} className="mb-2 text-lg text-red-300/80">
-            Hello, I&apos;m Amr 👋
+            Hello, I&apos;m Amr 
           </motion.p>
 
           <motion.h1
@@ -281,14 +160,6 @@ export default function Hero() {
           {/* CTA */}
           <motion.div variants={itemVariants} className="flex flex-wrap gap-4">
             <a
-              href="/resume/Amr-Suleiman-CV.pdf"
-              download
-              className="group relative inline-flex h-13 items-center justify-center overflow-hidden  border border-red-500/60 bg-red-950/30 px-8 py-3 font-semibold text-white transition-all duration-300 hover:scale-105 hover:border-red-400 hover:bg-red-900/40 hover:shadow-[0_0_40px_rgba(192,57,43,0.6)]"
-            >
-              <span className="relative z-10">Download CV</span>
-              <div className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/5 to-transparent transition-transform duration-500 group-hover:translate-x-full" />
-            </a>
-            <a
               href="/resume/Amr-ElGohary-CV.pdf"
               download
               className="
@@ -302,7 +173,7 @@ export default function Hero() {
               transition-all duration-300
               hover:scale-105
               hover:border-red-400
-              hover:shadow-[0_0_40px_rgba(255,0,0,0.9)]
+              hover:shadow-[0_0_20px_rgba(255,0,0,0.9)]
             "
             >
               Download CV
@@ -339,46 +210,15 @@ export default function Hero() {
         </motion.div>
 
         {/* RIGHT */}
-        <div className="relative flex items-center justify-center">
+        <div className="relative flex min-h-[600px] items-center justify-center">
 
-          {/* Outer dashed rotating ring */}
-          <motion.div
-            className="absolute h-[420px] w-[420px] rounded-full border border-dashed border-red-800/30"
-            animate={{ rotate: 360 }}
-            transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
-          />
+          {/* Independently orbiting tech icons */}
+          {techIcons.map((props, i) => (
+            <OrbitIcon key={i} {...props} />
+          ))}
 
-          {/* Inner solid ring */}
-          <motion.div
-            className="absolute h-[340px] w-[340px] rounded-full border border-red-900/20"
-            animate={{ rotate: -360 }}
-            transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-          />
-
-          {/* Tech Icons Orbit */}
-          <motion.div
-            className="absolute h-[380px] w-[380px]"
-            animate={{ rotate: 360 }}
-            transition={{ duration: 18, repeat: Infinity, ease: "linear" }}
-          >
-            {techIcons.map(({ icon, angle, color }, i) => (
-              <OrbitIcon
-                key={i}
-                icon={icon}
-                angle={angle}
-                radius={190}
-                duration={18}
-                color={color}
-              />
-            ))}
-          </motion.div>
-
-          {/* Avatar */}
-          <motion.div
-            animate={{ y: [-10, 10, -10] }}
-            transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-            className="relative z-20"
-          >
+          {/* Avatar (static) */}
+          <div className="relative z-20">
             {/* Glow behind avatar */}
             <div className="absolute inset-0 rounded-full blur-[40px]" style={{ background: "rgba(192,57,43,0.35)" }} />
 
@@ -386,7 +226,7 @@ export default function Hero() {
             <div className="relative rounded-full p-[3px]" style={{ background: "linear-gradient(135deg, #c0392b, #7b1010, #c0392b)" }}>
               <div className="rounded-full bg-[#0a0000] p-1">
                 <Image
-                  src="/images/amr.jpg"
+                  src="/images/profile/amr.jpg"
                   alt="Amr"
                   width={220}
                   height={220}
@@ -395,7 +235,7 @@ export default function Hero() {
                 />
               </div>
             </div>
-          </motion.div>
+          </div>
         </div>
       </div>
 

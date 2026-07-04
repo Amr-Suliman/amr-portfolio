@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import { Space_Grotesk, Playfair_Display } from "next/font/google";
 import "./globals.css";
-import { Background } from "@/components/background";
-
 const spaceGrotesk = Space_Grotesk({
   variable: "--font-space-grotesk",
   subsets: ["latin"],
