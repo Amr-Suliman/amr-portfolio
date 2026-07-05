@@ -1,9 +1,53 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { Canvas } from "@react-three/fiber";
-import { Float, TorusKnot, Stars } from "@react-three/drei";
+import { useEffect, useRef, useState } from "react";
+import { motion, useInView } from "framer-motion";
 
+const codeString = `const developer = {
+
+  name: "Amr",
+
+  role: "Frontend Developer",
+
+  stack: [
+    "React",
+    "Next.js",
+    "TypeScript"
+  ],
+
+  passion:
+    "Building beautiful digital
+     experiences"
+
+};`;
+
+function TypedCode({ code }: { code: string }) {
+  const ref = useRef<HTMLPreElement | null>(null);
+  const isInView = useInView(ref, { once: true, margin: "-80px" });
+  const [displayed, setDisplayed] = useState("");
+
+  useEffect(() => {
+    if (!isInView) return;
+
+    let i = 0;
+    const interval = setInterval(() => {
+      i += 1;
+      setDisplayed(code.slice(0, i));
+      if (i >= code.length) clearInterval(interval);
+    }, 30);
+
+    return () => clearInterval(interval);
+  }, [isInView, code]);
+
+  return (
+    <pre
+      ref={ref}
+      className="overflow-x-auto whitespace-pre-wrap break-words text-[11px] leading-6 text-red-300 sm:text-xs sm:leading-7 md:text-sm"
+    >
+      {displayed}
+    </pre>
+  );
+}
 
 export default function About() {
   const skills = [
@@ -77,25 +121,7 @@ export default function About() {
             viewport={{ once: true }}
             className="border border-red-500/20 bg-black/40 p-5 shadow-[0_0_40px_rgba(192,57,43,0.15)] backdrop-blur-xl sm:p-6 md:p-8"
           >
-            <pre className="overflow-x-auto whitespace-pre-wrap break-words text-[11px] leading-6 text-red-300 sm:text-xs sm:leading-7 md:text-sm">
-              {`const developer = {
-
-  name: "Amr",
-
-  role: "Frontend Developer",
-
-  stack: [
-    "React",
-    "Next.js",
-    "TypeScript"
-  ],
-
-  passion:
-    "Building beautiful digital
-     experiences"
-
-};`}
-            </pre>
+            <TypedCode code={codeString} />
           </motion.div>
         </div>
       </div>
