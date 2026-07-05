@@ -36,33 +36,6 @@ const socialLinks = [
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
 
-  // أنيميشن القائمة الجانبية كاملة
-  const menuVariants = {
-    hidden: { x: "100%", opacity: 0 },
-    visible: {
-      x: 0,
-      opacity: 1,
-      transition: {
-        type: "spring",
-        stiffness: 100,
-        damping: 20,
-        staggerChildren: 0.08, // بيخلي العناصر تظهر ورا بعضها بشكل فخم
-        delayChildren: 0.2,
-      },
-    },
-    exit: {
-      x: "100%",
-      opacity: 0,
-      transition: { type: "tween", ease: "easeInOut", duration: 0.3 },
-    },
-  };
-
-  // أنيميشن خاص بكل لينك والـ Icons عشان تطلع حركة توب
-  const itemVariants = {
-    hidden: { x: 30, opacity: 0 },
-    visible: { x: 0, opacity: 1, transition: { type: "spring", stiffness: 120 } },
-  };
-
   return (
     <>
       <motion.nav
@@ -110,7 +83,7 @@ export default function Navbar() {
             ))}
           </div>
 
-          {/* Mobile Menu Button */}
+          {/* Mobile Menu Button (Hamburger Icon) */}
           <button
             onClick={() => setIsOpen(!isOpen)}
             className="flex h-10 w-10 flex-col items-center justify-center gap-1.5 rounded-lg border border-red-500/20 bg-black/40 text-white outline-none md:hidden"
@@ -139,48 +112,40 @@ export default function Navbar() {
       <AnimatePresence>
         {isOpen && (
           <motion.div
-            variants={menuVariants}
-            initial="hidden"
-            animate="visible"
-            exit="exit"
-            className="fixed right-0 top-0 z-40 flex h-screen w-4/5 max-w-sm flex-col justify-between border-l border-red-950/50 bg-black/95 p-8 pt-28 backdrop-blur-xl md:hidden shadow-[-15px_0_40px_rgba(0,0,0,0.6)]"
+            initial={{ opacity: 0, x: "100%" }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: "100%" }}
+            transition={{ type: "tween", duration: 0.4 }}
+            className="fixed right-0 top-0 z-40 h-screen w-4/5 max-w-sm border-l border-red-950/50 bg-black/95 p-6 pt-28 backdrop-blur-xl md:hidden shadow-[-10px_0_30px_rgba(0,0,0,0.5)]"
           >
-            {/* Nav Links */}
-            <ul className="flex flex-col gap-7 pl-2">
+            <ul className="flex flex-col gap-6 pl-4">
               {navLinks.map((link) => (
-                <motion.li key={link.name} variants={itemVariants}>
+                <li key={link.name}>
                   <Link
                     href={link.href}
                     onClick={() => setIsOpen(false)}
-                    className="text-xl font-semibold tracking-wider text-gray-300 transition-colors duration-300 hover:text-red-500 active:text-red-400"
+                    className="text-lg font-medium tracking-wider text-gray-300 transition-colors duration-300 hover:text-red-500"
                   >
                     {link.name}
                   </Link>
-                </motion.li>
+                </li>
               ))}
             </ul>
 
-            {/* Social Icons - تم رفعها وتغيير الاستايل بالكامل */}
-            <motion.div 
-              variants={itemVariants}
-              className="mb-12 flex flex-col gap-4 border-t border-red-900/20 pt-6"
-            >
-              <p className="text-xs font-medium tracking-widest text-gray-500 pl-2">FOLLOW ME</p>
-              <div className="flex gap-5 pl-2">
-                {socialLinks.map((social) => (
-                  <a
-                    key={social.label}
-                    href={social.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={() => setIsOpen(false)}
-                    className="flex h-12 w-12 items-center justify-center rounded-xl border border-red-500/20 bg-red-500/5 text-2xl text-gray-300 transition-all duration-300 hover:border-red-500 hover:text-red-500 hover:drop-shadow-[0_0_10px_rgba(239,68,68,0.6)]"
-                  >
-                    {social.icon}
-                  </a>
-                ))}
-              </div>
-            </motion.div>
+            <div className="absolute bottom-10 left-0 flex w-full justify-center gap-8 border-t border-red-900/20 pt-6">
+              {socialLinks.map((social) => (
+                <a
+                  key={social.label}
+                  href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => setIsOpen(false)}
+                  className="text-2xl text-gray-400 transition-colors duration-300 hover:text-red-500"
+                >
+                  {social.icon}
+                </a>
+              ))}
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
