@@ -48,7 +48,7 @@ export default function Navbar() {
         {/* Logo */}
         <Link href="/">
           <h1 className="text-2xl font-bold text-white transition duration-300 hover:text-red-500">
-            Amr<span className="text-red-500">.dev</span>
+            AMR<span className="text-red-500">.dev</span>
           </h1>
         </Link>
 
