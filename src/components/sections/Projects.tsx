@@ -223,7 +223,6 @@ once:true
 className="
 group
 overflow-hidden
-rounded-2xl
 border
 border-red-500/20
 bg-black/40
@@ -351,7 +350,6 @@ project.tags.map(tag=>(
 key={tag}
 
 className="
-rounded-full
 border
 border-red-500/30
 bg-red-500/10
@@ -398,7 +396,6 @@ className="
 flex
 items-center
 gap-2
-rounded-lg
 border
 border-red-500/50
 px-4
@@ -430,7 +427,6 @@ className="
 flex
 items-center
 gap-2
-rounded-lg
 border
 border-white/10
 px-4

@@ -341,8 +341,6 @@ className="
 
 group
 
-rounded-2xl
-
 border
 
 border-red-500/20
@@ -432,7 +430,6 @@ items-center
 
 justify-between
 
-rounded-xl
 
 border
 

@@ -325,7 +325,6 @@ text-red-400
 <div
 
 className="
-rounded-2xl
 border
 border-red-500/20
 bg-black/40
@@ -432,7 +431,6 @@ item.skills.map(skill=>(
 key={skill}
 
 className="
-rounded-full
 border
 border-red-500/30
 bg-red-500/10

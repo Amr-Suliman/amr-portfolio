@@ -306,8 +306,6 @@ className="
 
 group
 
-rounded-2xl
-
 border
 
 border-red-500/20
@@ -329,7 +327,7 @@ hover:-translate-y-3
 hover:border-red-500/60
 
 
-hover:shadow-[0_0_40px_rgba(192,57,43,.25)]
+hover:shadow-[0_0_30px_rgba(192,57,43,.25)]
 
 "
 
@@ -353,8 +351,6 @@ w-14
 items-center
 
 justify-center
-
-rounded-xl
 
 bg-red-500/10
 
@@ -451,7 +447,6 @@ text-gray-300
 className="
 h-2
 w-2
-rounded-full
 bg-red-500
 "
 

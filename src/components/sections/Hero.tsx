@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { motion, Variants } from "framer-motion";
+import { TypeAnimation } from "react-type-animation";
 import { FaGithub, FaLinkedin, FaWhatsapp } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 
@@ -37,7 +38,7 @@ function OrbitIcon({ src, alt, color, radius, startAngle, duration, direction = 
         animate={{ rotate: -startAngle - direction * 360 }}
         transition={{ duration, repeat: Infinity, ease: "linear" }}
       >
-        <div className="flex h-12 w-12 items-center justify-center rounded-full shadow-lg" title={alt}>
+        <div className="flex h-9 w-9 items-center justify-center rounded-full shadow-lg sm:h-10 sm:w-10 md:h-12 md:w-12" title={alt}>
           <div
             style={{
               width: 100,
@@ -75,80 +76,82 @@ export default function Hero() {
   ];
 
   const containerVariants: Variants = {
-    hidden: {
-      opacity: 0
-    },
-
+    hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: {
-        staggerChildren: 0.12
-      }
-    }
+      transition: { staggerChildren: 0.12 },
+    },
   };
 
-
   const itemVariants: Variants = {
-
-    hidden: {
-      opacity: 0,
-      y: 30
-    },
-
+    hidden: { opacity: 0, y: 30 },
     visible: {
       opacity: 1,
       y: 0,
-
-      transition: {
-        duration: 0.7,
-        ease: "easeOut"
-      }
-    }
-
+      transition: { duration: 0.7, ease: "easeOut" },
+    },
   };
 
   return (
-    <section className="relative flex min-h-screen items-center overflow-hidden bg-[#0a0000]">
+    <section className="relative flex min-h-screen items-center overflow-hidden bg-[#0a0000] pt-24 md:pt-0">
       {/* ── Simple background glow ── */}
       <div
-        className="pointer-events-none absolute left-[-10%] top-[-10%] h-[600px] w-[600px] rounded-full blur-[160px]"
+        className="pointer-events-none absolute left-[-10%] top-[-10%] h-[350px] w-[350px] rounded-full blur-[100px] sm:h-[600px] sm:w-[600px] sm:blur-[160px]"
         style={{ background: "rgba(192,57,43,0.12)" }}
       />
 
       {/* ── Content ── */}
-      <div className="relative z-10 mx-auto grid w-full max-w-[1250px] grid-cols-1 items-center gap-16 px-6 py-20 md:grid-cols-2 md:px-12">
-
+      <div className="relative z-10 mx-auto grid w-full max-w-[1250px] grid-cols-1 items-center gap-10 px-5 py-10 sm:px-6 sm:py-16 md:grid-cols-2 md:gap-16 md:px-12 md:py-20">
         {/* LEFT */}
         <motion.div
           variants={containerVariants}
           initial="hidden"
           animate="visible"
+          className="order-2 text-left md:order-1"
         >
           <motion.p
             variants={itemVariants}
-            className="mb-3 inline-flex items-center gap-2 rounded-full border border-red-800/40 bg-red-950/30 px-4 py-1.5 text-sm text-red-300"
+            className="mb-4 inline-flex items-center gap-2 border border-red-800/40 bg-red-950/30 px-4 py-1.5 text-xs text-red-300 sm:text-sm"
           >
             <span className="h-2 w-2 animate-pulse rounded-full bg-red-400" />
             Available for work
           </motion.p>
 
-          <motion.p variants={itemVariants} className="mb-2 text-lg text-red-300/80">
-            Hello, I&apos;m Amr 
+          <motion.p variants={itemVariants} className="mb-2 text-base text-red-300/80 sm:text-lg">
+            Hello, I&apos;m Amr
           </motion.p>
 
+          {/* Rotating role headline — height reserved to avoid layout shift */}
+          {/* Rotating role headline — height reserved to avoid layout shift */}
           <motion.h1
             variants={itemVariants}
-            className="mb-5 text-6xl font-bold tracking-tight text-white md:text-7xl"
+            className="mb-5 min-h-[52px] text-2xl font-bold leading-[1.15] tracking-tight text-white sm:mb sm:min-h-[64px] sm:text-3xl md:min-h-[76px] md:text-4xl lg:min-h-[92px] lg:text-6xl"
           >
-            Frontend
-            <span className="block bg-gradient-to-r from-red-400 via-red-500 to-red-700 bg-clip-text text-transparent">
-              Developer
+            <span className="whitespace-nowrap bg-gradient-to-r from-red-400 via-red-500 to-red-700 bg-clip-text text-transparent">
+              <TypeAnimation
+                sequence={[
+                  "Frontend Developer",
+                  1700,
+                  "React Specialist",
+                  1700,
+                  "UI/UX Enthusiast",
+                  1700,
+                  "Problem Solver",
+                  1700,
+                  "Clean Code Advocate",
+                  1700,
+                ]}
+                wrapper="span"
+                speed={55}
+                cursor
+                repeat={Infinity}
+              />
             </span>
           </motion.h1>
 
           <motion.p
             variants={itemVariants}
-            className="mb-10 max-w-lg text-base leading-relaxed text-gray-400"
+            className="mb-8 max-w-lg text-sm leading-relaxed text-gray-400 sm:mb-10 sm:text-base"
           >
             Building modern web experiences using{" "}
             <span className="text-red-400">React</span>,{" "}
@@ -158,22 +161,27 @@ export default function Hero() {
           </motion.p>
 
           {/* CTA */}
-          <motion.div variants={itemVariants} className="flex flex-wrap gap-4">
+          <motion.div
+            variants={itemVariants}
+            className="flex flex-row justify-start gap-3 sm:gap-4"
+          >
             <a
               href="/resume/Amr-ElGohary-CV.pdf"
               download
               className="
               group relative inline-flex
-              h-14 items-center justify-center
+              h-11 flex-1 items-center justify-center
+              whitespace-nowrap
               border border-red-500/60
               bg-black/30
-              px-10
-              font-semibold
+              px-4
+              text-sm font-semibold
               text-white
               transition-all duration-300
               hover:scale-105
               hover:border-red-400
               hover:shadow-[0_0_20px_rgba(255,0,0,0.9)]
+              sm:h-14 sm:flex-none sm:px-10 sm:text-base
             "
             >
               Download CV
@@ -181,14 +189,14 @@ export default function Hero() {
 
             <a
               href="#projects"
-              className="inline-flex h-13 items-center justify-center border border-white/10 bg-white/5 px-8 py-3 font-semibold text-gray-300 backdrop-blur-sm transition-all duration-300 hover:border-white/20 hover:text-white"
+              className="inline-flex h-11 flex-1 items-center justify-center whitespace-nowrap border border-white/10 bg-white/5 px-4 text-sm font-semibold text-gray-300 backdrop-blur-sm transition-all duration-300 hover:border-white/20 hover:text-white sm:h-14 sm:flex-none sm:px-8 sm:text-base"
             >
               View Projects
             </a>
           </motion.div>
 
           {/* Socials */}
-          <motion.div variants={itemVariants} className="mt-10 flex gap-3">
+          <motion.div variants={itemVariants} className="mt-8 flex justify-start gap-3 sm:mt-10">
             {[
               { href: "https://www.linkedin.com/in/amr-suleiman", icon: <FaLinkedin />, label: "LinkedIn" },
               { href: "mailto:amrelgohary573@gmail.com", icon: <MdEmail />, label: "Email" },
@@ -201,7 +209,7 @@ export default function Hero() {
                 target={href.startsWith("http") ? "_blank" : undefined}
                 rel="noreferrer"
                 aria-label={label}
-                className="group flex h-11 w-11 items-center justify-center rounded-full border border-red-500/20 bg-black/40 text-lg text-gray-400 backdrop-blur-sm transition-all duration-300 hover:scale-110 hover:border-red-500/60 hover:text-red-400 hover:shadow-[0_0_20px_rgba(192,57,43,0.3)]"
+                className="group flex h-10 w-10 items-center justify-center rounded-full border border-red-500/20 bg-black/40 text-base text-gray-400 backdrop-blur-sm transition-all duration-300 hover:scale-110 hover:border-red-500/60 hover:text-red-400 hover:shadow-[0_0_20px_rgba(192,57,43,0.3)] sm:h-11 sm:w-11 sm:text-lg"
               >
                 {icon}
               </a>
@@ -210,29 +218,30 @@ export default function Hero() {
         </motion.div>
 
         {/* RIGHT */}
-        <div className="relative flex min-h-[600px] items-center justify-center">
+        <div className="order-1 flex min-h-[260px] items-center justify-center sm:min-h-[380px] md:order-2 md:min-h-[600px]">
+          <div className="relative flex scale-[0.55] items-center justify-center sm:scale-[0.75] md:scale-100">
+            {/* Independently orbiting tech icons */}
+            {techIcons.map((props, i) => (
+              <OrbitIcon key={i} {...props} />
+            ))}
 
-          {/* Independently orbiting tech icons */}
-          {techIcons.map((props, i) => (
-            <OrbitIcon key={i} {...props} />
-          ))}
+            {/* Avatar (static) */}
+            <div className="relative z-20">
+              {/* Glow behind avatar */}
+              <div className="absolute inset-0 rounded-full blur-[40px]" style={{ background: "rgba(192,57,43,0.35)" }} />
 
-          {/* Avatar (static) */}
-          <div className="relative z-20">
-            {/* Glow behind avatar */}
-            <div className="absolute inset-0 rounded-full blur-[40px]" style={{ background: "rgba(192,57,43,0.35)" }} />
-
-            {/* Ring border */}
-            <div className="relative rounded-full p-[3px]" style={{ background: "linear-gradient(135deg, #c0392b, #7b1010, #c0392b)" }}>
-              <div className="rounded-full bg-[#0a0000] p-1">
-                <Image
-                  src="/images/profile/amr.jpg"
-                  alt="Amr"
-                  width={220}
-                  height={220}
-                  className="rounded-full object-cover"
-                  priority
-                />
+              {/* Ring border */}
+              <div className="relative rounded-full p-[3px]" style={{ background: "linear-gradient(135deg, #c0392b, #7b1010, #c0392b)" }}>
+                <div className="rounded-full bg-[#0a0000] p-1">
+                  <Image
+                    src="/images/profile/amr.jpg"
+                    alt="Amr"
+                    width={220}
+                    height={220}
+                    className="rounded-full object-cover"
+                    priority
+                  />
+                </div>
               </div>
             </div>
           </div>
@@ -241,7 +250,7 @@ export default function Hero() {
 
       {/* Scroll indicator */}
       <motion.div
-        className="absolute bottom-8 left-1/2 z-10 flex -translate-x-1/2 flex-col items-center gap-2"
+        className="absolute bottom-4 left-1/2 z-10 hidden -translate-x-1/2 flex-col items-center gap-2 sm:bottom-8 sm:flex"
         animate={{ opacity: [1, 0.3, 1] }}
         transition={{ duration: 2, repeat: Infinity }}
       >

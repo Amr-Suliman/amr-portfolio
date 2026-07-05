@@ -164,7 +164,7 @@ export default function Contact() {
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.7 }}
             viewport={{ once: true }}
-            className="rounded-2xl border border-red-500/20 bg-black/40 p-8 backdrop-blur-xl shadow-[0_0_40px_rgba(192,57,43,.15)]"
+            className="border border-red-500/20 bg-black/40 p-8 backdrop-blur-xl shadow-[0_0_40px_rgba(192,57,43,.15)]"
           >
             <input
               type="text"
@@ -173,7 +173,7 @@ export default function Contact() {
               onChange={handleChange}
               required
               placeholder="Your Name"
-              className="mb-5 w-full rounded-lg border border-red-500/20 bg-black/60 px-5 py-4 text-white outline-none placeholder:text-gray-500 focus:border-red-500"
+              className="mb-5 w-full border border-red-500/20 bg-black/60 px-5 py-4 text-white outline-none placeholder:text-gray-500 focus:border-red-500"
             />
 
             <input
@@ -183,7 +183,7 @@ export default function Contact() {
               onChange={handleChange}
               required
               placeholder="Your Email"
-              className="mb-5 w-full rounded-lg border border-red-500/20 bg-black/60 px-5 py-4 text-white outline-none placeholder:text-gray-500 focus:border-red-500"
+              className="mb-5 w-full border border-red-500/20 bg-black/60 px-5 py-4 text-white outline-none placeholder:text-gray-500 focus:border-red-500"
             />
 
             <textarea
@@ -193,7 +193,7 @@ export default function Contact() {
               required
               placeholder="Your Message"
               rows={5}
-              className="mb-6 w-full rounded-lg border border-red-500/20 bg-black/60 px-5 py-4 text-white outline-none resize-none placeholder:text-gray-500 focus:border-red-500"
+              className="mb-6 w-full border border-red-500/20 bg-black/60 px-5 py-4 text-white outline-none resize-none placeholder:text-gray-500 focus:border-red-500"
             />
 
             <button
