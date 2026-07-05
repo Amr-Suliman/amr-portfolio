@@ -207,7 +207,7 @@ export default function Navbar() {
                 initial="hidden"
                 animate="visible"
                 exit="exit"
-                className="absolute bottom-10 left-0 flex w-full justify-center gap-8 border-t border-red-900/20 pt-6"
+                className="absolute bottom-20 left-0 flex w-full justify-center gap-8 border-t border-red-900/20 pt-6"
               >
                 {socialLinks.map((social) => (
                   <motion.a
