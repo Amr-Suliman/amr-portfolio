@@ -42,8 +42,7 @@ function TypedCode({ code }: { code: string }) {
   return (
     <pre
       ref={ref}
-      className="overflow-x-auto whitespace-pre-wrap break-words text-[11px] leading-6 text-red-300 sm:text-xs sm:leading-7 md:text-sm"
-    >
+      className="overflow-x-auto whitespace-pre-wrap break-words text-[11px] leading-6 text-red-300 sm:text-xs sm:leading-7 md:text-sm">
       {displayed}
     </pre>
   );
@@ -105,8 +104,7 @@ export default function About() {
               {skills.map((skill) => (
                 <span
                   key={skill}
-                  className="border border-red-500/30 bg-red-500/10 px-3.5 py-1.5 text-xs text-red-300 backdrop-blur transition hover:bg-red-500/20 sm:px-4 sm:py-2 sm:text-sm"
-                >
+                  className="border border-red-500/30 bg-red-500/10 px-3.5 py-1.5 text-xs text-red-300 backdrop-blur transition hover:bg-red-500/20 sm:px-4 sm:py-2 sm:text-sm">
                   {skill}
                 </span>
               ))}
@@ -119,8 +117,7 @@ export default function About() {
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className="border border-red-500/20 bg-black/40 p-5 shadow-[0_0_40px_rgba(192,57,43,0.15)] backdrop-blur-xl sm:p-6 md:p-8"
-          >
+            className="border border-red-500/20 bg-black/40 p-5 shadow-[0_0_40px_rgba(192,57,43,0.15)] backdrop-blur-xl sm:p-6 md:p-8">
             <TypedCode code={codeString} />
           </motion.div>
         </div>
