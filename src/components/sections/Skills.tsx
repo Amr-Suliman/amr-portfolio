@@ -9,7 +9,6 @@ import {
   FaGitAlt,
   FaGithub,
   FaFigma,
-  FaNodeJs,
   FaCube,
   FaSitemap,
   FaChartLine,
@@ -22,7 +21,6 @@ import {
   SiTypescript,
   SiTailwindcss,
   SiFramer,
-  SiAxios,
   SiPostman,
   SiCplusplus,
 } from "react-icons/si";
@@ -79,13 +77,15 @@ function LevelDots({ level }: { level: Level }) {
 
   return (
     <div className="flex items-center gap-2">
-      <span className="hidden text-[11px] text-red-300 sm:inline">{level}</span>
+      <span className="hidden font-mono text-[10px] uppercase tracking-[1px] text-muted sm:inline">
+        {level}
+      </span>
       <div className="flex items-center gap-1">
         {Array.from({ length: 4 }).map((_, i) => (
           <span
             key={i}
-            className={`h-1.5 w-1.5 rounded-full transition-colors sm:h-2 sm:w-2 ${
-              i < strength ? "bg-red-500" : "bg-white/10"
+            className={`h-1.5 w-1.5 rounded-full sm:h-2 sm:w-2 ${
+              i < strength ? "bg-foreground" : "bg-foreground/15"
             }`}
           />
         ))}
@@ -96,30 +96,21 @@ function LevelDots({ level }: { level: Level }) {
 
 export default function Skills() {
   return (
-    <section
-      id="skills"
-      className="relative overflow-hidden bg-background py-20 md:py-28"
-    >
-      {/* glow */}
-      <div className="absolute left-1/2 top-0 h-[250px] w-[250px] -translate-x-1/2 rounded-full bg-red-600/20 blur-[100px] md:h-[400px] md:w-[400px] md:blur-[160px]" />
-
-      <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6">
-        {/* title */}
+    <section id="skills" className="relative bg-background py-20 md:py-28">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6">
+        {/* Kicker + Title */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center"
         >
-          <p className="mb-3 text-xs tracking-[4px] text-red-400 sm:text-sm">
-            MY SKILLS
+          <p className="mb-3 font-mono text-[11px] uppercase tracking-[2px] text-muted sm:text-xs">
+            03 — Skills
           </p>
-
-          <h2 className="text-3xl font-bold text-white sm:text-4xl md:text-5xl">
+          <h2 className="text-3xl font-bold text-foreground sm:text-4xl md:text-5xl">
             Technologies I Use
           </h2>
-
-          <div className="mx-auto mt-5 h-1 w-16 bg-red-500" />
+          <div className="mt-4 h-[1px] w-16 bg-foreground/20" />
         </motion.div>
 
         {/* cards */}
@@ -131,13 +122,13 @@ export default function Skills() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.15 }}
               viewport={{ once: true }}
-              className="group border border-red-500/20 bg-black/40 p-5 backdrop-blur-xl transition hover:-translate-y-2 hover:border-red-500/60 hover:shadow-[0_0_40px_rgba(192,57,43,.2)] sm:p-6 md:p-7 md:hover:-translate-y-3"
+              className="bg-surface p-5 shadow-[0_20px_40px_-28px_rgba(0,0,0,0.5)] transition-all duration-300 hover:-translate-y-1 hover:bg-surface-alt hover:shadow-[0_30px_50px_-20px_rgba(0,0,0,0.6)] sm:p-6 md:p-7"
             >
-              <h3 className="mb-3 text-lg font-bold text-white sm:text-xl">
+              <h3 className="mb-3 text-lg font-bold text-foreground sm:text-xl">
                 {group.title}
               </h3>
 
-              <p className="mb-6 text-sm leading-6 text-gray-400 sm:mb-8">
+              <p className="mb-6 text-sm leading-6 text-muted sm:mb-8">
                 {group.description}
               </p>
 
@@ -145,14 +136,14 @@ export default function Skills() {
                 {group.skills.map((skill) => (
                   <div
                     key={skill.name}
-                    className="flex items-center justify-between border border-white/10 bg-white/5 p-3 transition hover:border-red-500/40 sm:p-4"
+                    className="flex items-center justify-between border border-foreground/10 p-3 sm:p-4"
                   >
                     <div className="flex items-center gap-3 sm:gap-4">
-                      <span className="text-xl text-red-400 sm:text-2xl">
+                      <span className="text-xl text-foreground/70 sm:text-2xl">
                         {skill.icon}
                       </span>
 
-                      <span className="text-sm font-medium text-white sm:text-base">
+                      <span className="text-sm font-medium text-foreground sm:text-base">
                         {skill.name}
                       </span>
                     </div>

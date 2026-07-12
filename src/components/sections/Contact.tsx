@@ -138,48 +138,48 @@ export default function Contact() {
               projects, new ideas and opportunities.
             </p>
 
-           <div className="mt-8 space-y-3">
-  <div className="flex items-center justify-between gap-4 border border-white/5 bg-white/[0.03] px-4 py-3.5 transition hover:border-red-500/30 hover:bg-white/[0.05]">
-    <div className="flex items-center gap-4 text-gray-300">
-      <span className="flex h-9 w-9 items-center justify-center rounded-full bg-red-500/10 text-red-500">
-        <FaEnvelope />
-      </span>
-      amrelgohary573@gmail.com
-    </div>
-    <button
-      type="button"
-      onClick={() => handleCopy("amrelgohary573@gmail.com", "email")}
-      aria-label="Copy email"
-      className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full text-gray-500 transition hover:bg-red-500/10 hover:text-red-400"
-    >
-      {copied === "email" ? <FaCheck className="text-red-500" /> : <FaRegCopy />}
-    </button>
-  </div>
+            <div className="mt-8 space-y-3">
+              <div className="flex items-center justify-between gap-4 border border-white/5 bg-white/[0.03] px-4 py-3.5 transition hover:border-red-500/30 hover:bg-white/[0.05]">
+                <div className="flex items-center gap-4 text-gray-300">
+                  <span className="flex h-9 w-9 items-center justify-center rounded-full bg-red-500/10 text-red-500">
+                    <FaEnvelope />
+                  </span>
+                  amrelgohary573@gmail.com
+                </div>
+                <button
+                  type="button"
+                  onClick={() => handleCopy("amrelgohary573@gmail.com", "email")}
+                  aria-label="Copy email"
+                  className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full text-gray-500 transition hover:bg-red-500/10 hover:text-red-400"
+                >
+                  {copied === "email" ? <FaCheck className="text-red-500" /> : <FaRegCopy />}
+                </button>
+              </div>
 
-  <div className="flex items-center justify-between gap-4 border border-white/5 bg-white/[0.03] px-4 py-3.5 transition hover:border-red-500/30 hover:bg-white/[0.05]">
-    <div className="flex items-center gap-4 text-gray-300">
-      <span className="flex h-9 w-9 items-center justify-center rounded-full bg-red-500/10 text-red-500">
-        <FaWhatsapp />
-      </span>
-      +20 120 600 5983
-    </div>
-    <button
-      type="button"
-      onClick={() => handleCopy("+201206005983", "phone")}
-      aria-label="Copy phone number"
-      className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full text-gray-500 transition hover:bg-red-500/10 hover:text-red-400"
-    >
-      {copied === "phone" ? <FaCheck className="text-red-500" /> : <FaRegCopy />}
-    </button>
-  </div>
+              <div className="flex items-center justify-between gap-4 border border-white/5 bg-white/[0.03] px-4 py-3.5 transition hover:border-red-500/30 hover:bg-white/[0.05]">
+                <div className="flex items-center gap-4 text-gray-300">
+                  <span className="flex h-9 w-9 items-center justify-center rounded-full bg-red-500/10 text-red-500">
+                    <FaWhatsapp />
+                  </span>
+                  +20 120 600 5983
+                </div>
+                <button
+                  type="button"
+                  onClick={() => handleCopy("+201206005983", "phone")}
+                  aria-label="Copy phone number"
+                  className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full text-gray-500 transition hover:bg-red-500/10 hover:text-red-400"
+                >
+                  {copied === "phone" ? <FaCheck className="text-red-500" /> : <FaRegCopy />}
+                </button>
+              </div>
 
-  <div className="flex items-center gap-4 border border-white/5 bg-white/[0.03] px-4 py-3.5 text-gray-300">
-    <span className="flex h-9 w-9 items-center justify-center rounded-full bg-red-500/10 text-red-500">
-      <FaMapMarkerAlt />
-    </span>
-    Egypt
-  </div>
-</div>
+              <div className="flex items-center gap-4 border border-white/5 bg-white/[0.03] px-4 py-3.5 text-gray-300">
+                <span className="flex h-9 w-9 items-center justify-center rounded-full bg-red-500/10 text-red-500">
+                  <FaMapMarkerAlt />
+                </span>
+                Egypt
+              </div>
+            </div>
 
             {/* socials */}
             <div className="mt-10 flex gap-4">
@@ -251,9 +251,8 @@ export default function Contact() {
 
             {status.message && (
               <p
-                className={`mt-4 text-sm font-medium ${
-                  status.success ? "text-green-400" : "text-red-400"
-                }`}
+                className={`mt-4 text-sm font-medium ${status.success ? "text-green-400" : "text-red-400"
+                  }`}
               >
                 {status.message}
               </p>

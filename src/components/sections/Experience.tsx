@@ -40,15 +40,15 @@ const experiences = [
 function StatusBadge({ status }: { status: "completed" | "active" }) {
   if (status === "active") {
     return (
-      <span className="inline-flex items-center gap-1.5 border border-[#e84855]/40 bg-[#e84855]/10 px-2.5 py-1 text-[10px] font-medium tracking-wide text-[#e84855] sm:text-[11px]">
-        <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-[#e84855]" />
+      <span className="inline-flex items-center gap-1.5 border border-foreground/25 px-2.5 py-1 text-[10px] font-medium tracking-wide text-foreground transition-colors duration-300 group-hover:border-background/25 group-hover:text-background sm:text-[11px]">
+        <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-foreground transition-colors duration-300 group-hover:bg-background" />
         ACTIVE
       </span>
     );
   }
   return (
-    <span className="inline-flex items-center gap-1.5 border border-white/10 bg-white/5 px-2.5 py-1 text-[10px] font-medium tracking-wide text-gray-400 sm:text-[11px]">
-      <span className="h-1.5 w-1.5 rounded-full bg-gray-500" />
+    <span className="inline-flex items-center gap-1.5 border border-foreground/10 px-2.5 py-1 text-[10px] font-medium tracking-wide text-muted transition-colors duration-300 group-hover:border-background/15 group-hover:text-background/50 sm:text-[11px]">
+      <span className="h-1.5 w-1.5 rounded-full bg-muted transition-colors duration-300 group-hover:bg-background/50" />
       COMPLETED
     </span>
   );
@@ -75,29 +75,37 @@ function TimelineItem({
     >
       {/* Icon node */}
       <motion.div
-        animate={isInView ? { scale: 1, boxShadow: "0 0 25px rgba(232,72,85,0.35)" } : { scale: 0.85, boxShadow: "0 0 0px rgba(232,72,85,0)" }}
+        animate={isInView ? { scale: 1 } : { scale: 0.85 }}
         transition={{ duration: 0.5, delay: index * 0.15 + 0.2 }}
-        className="absolute -left-[49px] top-8 flex h-10 w-10 items-center justify-center rounded-full border border-[#e84855] bg-[#0d0202] text-[#e84855]"
+        className="absolute -left-[49px] top-8 flex h-10 w-10 items-center justify-center border border-foreground bg-background text-foreground"
       >
         {item.icon}
       </motion.div>
 
       {/* Card */}
-      <div className="border border-[#e84855]/20 bg-black/40 p-7 backdrop-blur-xl transition duration-300 hover:-translate-y-2 hover:border-[#e84855]/60 hover:shadow-[0_0_35px_rgba(232,72,85,0.25)]">
+      <div className="group bg-[rgb(229,224,213)] p-7 shadow-[0_20px_40px_-28px_rgba(26,26,26,0.1)] transition-colors duration-300 hover:bg-foreground">
         <div className="flex flex-wrap items-center justify-between gap-3">
-          <span className="text-sm text-[#e84855]">{item.date}</span>
+          <span className="text-sm text-foreground transition-colors duration-300 group-hover:text-background">
+            {item.date}
+          </span>
           <StatusBadge status={item.status} />
         </div>
 
-        <h3 className="mt-3 text-2xl font-bold text-white">{item.title}</h3>
-        <p className="text-[#ffb020]/90">{item.company}</p>
-        <p className="mt-4 leading-7 text-gray-400">{item.description}</p>
+        <h3 className="mt-3 text-2xl font-bold text-foreground transition-colors duration-300 group-hover:text-background">
+          {item.title}
+        </h3>
+        <p className="text-muted transition-colors duration-300 group-hover:text-background/60">
+          {item.company}
+        </p>
+        <p className="mt-4 leading-7 text-muted transition-colors duration-300 group-hover:text-background/60">
+          {item.description}
+        </p>
 
         <div className="mt-6 flex flex-wrap gap-2">
           {item.skills.map((skill) => (
             <span
               key={skill}
-              className="border border-[#e84855]/30 bg-[#e84855]/10 px-3 py-1 text-xs text-[#e84855]/90"
+              className="border border-foreground/15 px-3 py-1 text-xs text-foreground/80 transition-colors duration-300 group-hover:border-background/20 group-hover:text-background/80"
             >
               {skill}
             </span>
@@ -123,36 +131,33 @@ export default function Experience() {
   });
 
   return (
-    <section
-      id="experience"
-      className="relative min-h-screen overflow-hidden bg-[#0d0202] py-28"
-    >
-      {/* Background Glow */}
-      <div className="absolute right-0 top-20 h-[400px] w-[400px] rounded-full bg-[#e84855]/20 blur-[150px]" />
-
-      <div className="relative z-10 mx-auto max-w-5xl px-6">
-        {/* Title */}
+    <section id="experience" className="relative min-h-screen bg-background py-28">
+      <div className="mx-auto max-w-5xl px-6">
+        {/* Kicker + Title */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7 }}
           viewport={{ once: true }}
-          className="text-center"
         >
-          <p className="mb-3 tracking-[4px] text-[#e84855]">MY JOURNEY</p>
-          <h2 className="text-5xl font-bold text-white">Experience</h2>
-          <div className="mx-auto mt-5 h-1 w-16 bg-[#e84855]" />
+          <p className="mb-3 font-mono text-[11px] uppercase tracking-[2px] text-muted sm:text-xs">
+            05 — Experience
+          </p>
+          <h2 className="text-3xl font-bold text-foreground sm:text-4xl md:text-5xl">
+            Experience
+          </h2>
+          <div className="mt-4 h-[1px] w-16 bg-foreground/20" />
         </motion.div>
 
         {/* Timeline */}
         <div ref={containerRef} className="relative mt-16 space-y-10 pl-8">
           {/* base track */}
-          <div className="absolute bottom-0 left-0 top-0 w-[1px] bg-white/10" />
+          <div className="absolute bottom-0 left-0 top-0 w-[1px] bg-foreground/10" />
 
           {/* animated fill that grows with scroll */}
           <motion.div
             style={{ scaleY: progressHeight }}
-            className="absolute left-0 top-0 w-[1px] origin-top bg-gradient-to-b from-[#e84855] via-[#e84855] to-[#ffb020]/60"
+            className="absolute left-0 top-0 w-[1px] origin-top bg-foreground"
           />
 
           {experiences.map((item, index) => (

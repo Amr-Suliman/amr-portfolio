@@ -25,6 +25,7 @@ function TypedCode({ code }: { code: string }) {
   const ref = useRef<HTMLPreElement | null>(null);
   const isInView = useInView(ref, { once: true, margin: "-80px" });
   const [displayed, setDisplayed] = useState("");
+  const [done, setDone] = useState(false);
 
   useEffect(() => {
     if (!isInView) return;
@@ -33,17 +34,27 @@ function TypedCode({ code }: { code: string }) {
     const interval = setInterval(() => {
       i += 1;
       setDisplayed(code.slice(0, i));
-      if (i >= code.length) clearInterval(interval);
+      if (i >= code.length) {
+        clearInterval(interval);
+        setDone(true);
+      }
     }, 30);
 
     return () => clearInterval(interval);
   }, [isInView, code]);
 
+  // subtle premium touch: keys get slightly bolder weight than string values,
+  // done purely with opacity/weight (no hue) to stay monochrome
   return (
     <pre
       ref={ref}
-      className="overflow-x-auto whitespace-pre-wrap break-words text-[11px] leading-6 text-red-300 sm:text-xs sm:leading-7 md:text-sm">
+      className="overflow-x-auto whitespace-pre-wrap break-words font-mono text-[11px] leading-6 text-foreground/80 sm:text-xs sm:leading-7 md:text-sm"
+    >
       {displayed}
+      <span
+        className={`ml-[1px] inline-block h-[1em] w-[2px] translate-y-[2px] bg-foreground/60 ${done ? "animate-pulse" : "opacity-0"
+          }`}
+      />
     </pre>
   );
 }
@@ -63,48 +74,49 @@ export default function About() {
   return (
     <section
       id="about"
-      className="relative min-h-screen overflow-hidden bg-background py-20 md:py-28">
-      {/* red glow */}
-      <div
-        className="absolute left-0 top-1/2 h-[250px] w-[250px] -translate-y-1/2 rounded-full bg-red-600/20 blur-[100px] md:h-[400px] md:w-[400px] md:blur-[150px]"/>
-
-      <div className="relative z-10 mx-auto max-w-6xl px-4 sm:px-6">
-        {/* Title */}
+      className="relative min-h-screen bg-background py-20 md:py-28"
+    >
+      <div className="mx-auto max-w-6xl px-4 sm:px-6">
+        {/* Kicker + Title */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7 }}
           viewport={{ once: true }}
-          className="text-center">
-          <h2 className="text-3xl font-bold text-white sm:text-4xl md:text-5xl">
+        >
+          <p className="mb-3 font-mono text-[11px] uppercase tracking-[2px] text-muted sm:text-xs">
+            02 — About
+          </p>
+          <h2 className="text-3xl font-bold text-foreground sm:text-4xl md:text-5xl">
             About Me
           </h2>
-
-          <div className="mx-auto mt-4 h-1 w-16 bg-red-500" />
+          <div className="mt-4 h-[1px] w-16 bg-foreground/20" />
         </motion.div>
 
-        <div className="mt-14 grid items-center gap-10 md:mt-20 md:grid-cols-2 md:gap-14">
+        <div className="mt-14 grid items-start gap-10 md:mt-20 md:grid-cols-2 md:gap-14">
           {/* LEFT */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
-            viewport={{ once: true }}>
-            <p className="text-base leading-7 text-gray-400 sm:text-[17px] sm:leading-8">
+            viewport={{ once: true }}
+          >
+            <p className="text-base leading-7 text-muted sm:text-[17px] sm:leading-8">
               I&apos;m Amr, a Frontend Developer passionate about building
               modern web experiences. I create responsive and interactive
               applications using React, Next.js and TypeScript.
             </p>
 
-            <h3 className="mb-5 mt-8 text-lg font-semibold text-white sm:mt-10 sm:text-xl">
-              Skills & Technologies
+            <h3 className="mb-5 mt-8 font-mono text-xs uppercase tracking-[1.5px] text-muted sm:mt-10">
+              Skills &amp; Technologies
             </h3>
 
             <div className="flex flex-wrap gap-2.5 sm:gap-3">
               {skills.map((skill) => (
                 <span
                   key={skill}
-                  className="border border-red-500/30 bg-red-500/10 px-3.5 py-1.5 text-xs text-red-300 backdrop-blur transition hover:bg-red-500/20 sm:px-4 sm:py-2 sm:text-sm">
+                  className="cursor-default border border-foreground/15 px-3.5 py-1.5 text-xs text-foreground/70 transition-all duration-200 hover:border-foreground hover:text-foreground sm:px-4 sm:py-2 sm:text-sm"
+                >
                   {skill}
                 </span>
               ))}
@@ -117,8 +129,23 @@ export default function About() {
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className="border border-red-500/20 bg-black/40 p-5 shadow-[0_0_40px_rgba(192,57,43,0.15)] backdrop-blur-xl sm:p-6 md:p-8">
-            <TypedCode code={codeString} />
+            className="border border-foreground/15 bg-surface shadow-[0_1px_0_rgba(237,233,224,0.04)_inset,0_20px_40px_-24px_rgba(0,0,0,0.5)]"
+          >
+            {/* editor chrome */}
+            <div className="flex items-center gap-3 border-b border-foreground/10 px-4 py-2.5">
+              <div className="flex gap-1.5">
+                <span className="h-2 w-2 rounded-full border border-foreground/25" />
+                <span className="h-2 w-2 rounded-full border border-foreground/25" />
+                <span className="h-2 w-2 rounded-full border border-foreground/25" />
+              </div>
+              <span className="font-mono text-[10px] uppercase tracking-[1.5px] text-muted">
+                about.ts
+              </span>
+            </div>
+
+            <div className="p-5 sm:p-6 md:p-8">
+              <TypedCode code={codeString} />
+            </div>
           </motion.div>
         </div>
       </div>

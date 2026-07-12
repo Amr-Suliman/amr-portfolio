@@ -60,12 +60,8 @@ const linkVariants = {
 
 const iconContainerVariants = {
   hidden: {},
-  visible: {
-    transition: { staggerChildren: 0.08, delayChildren: 0.25 },
-  },
-  exit: {
-    transition: { staggerChildren: 0.04, staggerDirection: -1 },
-  },
+  visible: { transition: { staggerChildren: 0.08, delayChildren: 0.25 } },
+  exit: { transition: { staggerChildren: 0.04, staggerDirection: -1 } },
 };
 
 const iconVariants = {
@@ -94,21 +90,14 @@ export default function Navbar() {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setActiveId(entry.target.id);
-          }
+          if (entry.isIntersecting) setActiveId(entry.target.id);
         });
       },
-      {
-        // Section counts as active once it crosses the middle band of the viewport
-        rootMargin: "-45% 0px -50% 0px",
-        threshold: 0,
-      }
+      { rootMargin: "-45% 0px -50% 0px", threshold: 0 }
     );
 
     sections.forEach((section) => observer.observe(section));
 
-    // fall back to "home" when scrolled to the very top
     const handleScroll = () => {
       if (window.scrollY < 80) setActiveId("home");
     };
@@ -126,13 +115,13 @@ export default function Navbar() {
         initial={{ y: -80, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.8 }}
-        className="fixed left-0 top-0 z-50 w-full border-b border-[#e84855]/20 bg-black/70 backdrop-blur-md"
+        className="fixed left-0 top-0 z-50 w-full border-b border-foreground/10 bg-background/90 backdrop-blur-md"
       >
         <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-6">
           {/* Logo */}
           <Link href="/">
-            <h1 className="text-2xl font-bold text-white transition duration-300 hover:text-[#e84855]">
-              Amr<span className="text-[#e84855]">.dev</span>
+            <h1 className="text-2xl font-bold text-foreground">
+              Amr<span className="font-mono text-base font-normal text-muted">.dev</span>
             </h1>
           </Link>
 
@@ -144,13 +133,13 @@ export default function Navbar() {
                 <li key={link.name}>
                   <Link
                     href={link.href}
-                    className={`group relative pb-1 transition-colors duration-300 ${
-                      isActive ? "text-white" : "text-gray-300 hover:text-white"
+                    className={`group relative pb-1 font-mono text-xs uppercase tracking-[1.5px] transition-colors duration-300 ${
+                      isActive ? "text-foreground" : "text-muted hover:text-foreground"
                     }`}
                   >
                     {link.name}
                     <span
-                      className={`absolute bottom-0 left-0 h-[2px] bg-[#e84855] transition-all duration-300 ${
+                      className={`absolute bottom-0 left-0 h-[1px] bg-foreground transition-all duration-300 ${
                         isActive ? "w-full" : "w-0 group-hover:w-full"
                       }`}
                     />
@@ -169,7 +158,7 @@ export default function Navbar() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label={social.label}
-                className="text-xl text-gray-300 transition-all duration-300 hover:scale-110 hover:text-[#e84855] hover:drop-shadow-[0_0_8px_rgba(232,72,85,0.8)]"
+                className="text-lg text-muted transition-colors duration-300 hover:text-foreground"
               >
                 {social.icon}
               </a>
@@ -179,23 +168,23 @@ export default function Navbar() {
           {/* Mobile Menu Button (Hamburger Icon) */}
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="flex h-10 w-10 flex-col items-center justify-center gap-1.5 rounded-lg border border-[#e84855]/20 bg-black/40 text-white outline-none md:hidden"
+            className="flex h-10 w-10 flex-col items-center justify-center gap-1.5 border border-foreground/15 text-foreground outline-none md:hidden"
             aria-label="Toggle Menu"
           >
             <motion.div
               animate={isOpen ? { rotate: 45, y: 8 } : { rotate: 0, y: 0 }}
               transition={{ type: "spring", stiffness: 300, damping: 20 } as const}
-              className="h-[2px] w-6 bg-gray-300"
+              className="h-[1.5px] w-6 bg-foreground"
             />
             <motion.div
               animate={isOpen ? { opacity: 0 } : { opacity: 1 }}
               transition={{ duration: 0.2 }}
-              className="h-[2px] w-6 bg-gray-300"
+              className="h-[1.5px] w-6 bg-foreground"
             />
             <motion.div
               animate={isOpen ? { rotate: -45, y: -8 } : { rotate: 0, y: 0 }}
               transition={{ type: "spring", stiffness: 300, damping: 20 } as const}
-              className="h-[2px] w-6 bg-gray-300"
+              className="h-[1.5px] w-6 bg-foreground"
             />
           </button>
         </div>
@@ -211,7 +200,7 @@ export default function Navbar() {
               exit={{ opacity: 0 }}
               transition={{ duration: 0.3 }}
               onClick={() => setIsOpen(false)}
-              className="fixed inset-0 z-30 bg-black/60 backdrop-blur-sm md:hidden"
+              className="fixed inset-0 z-30 bg-foreground/30 backdrop-blur-sm md:hidden"
             />
 
             <motion.div
@@ -219,7 +208,7 @@ export default function Navbar() {
               initial="hidden"
               animate="visible"
               exit="exit"
-              className="fixed right-0 top-0 z-40 h-screen w-4/5 max-w-sm border-l border-[#e84855]/20 bg-black/95 p-6 pt-28 shadow-[-10px_0_30px_rgba(0,0,0,0.5)] backdrop-blur-xl md:hidden"
+              className="fixed right-0 top-0 z-40 h-screen w-4/5 max-w-sm border-l border-foreground/10 bg-background p-6 pt-28 shadow-[-10px_0_30px_rgba(0,0,0,0.08)] md:hidden"
             >
               <ul className="flex flex-col gap-6 pl-4">
                 {navLinks.map((link) => {
@@ -229,8 +218,8 @@ export default function Navbar() {
                       <Link
                         href={link.href}
                         onClick={() => setIsOpen(false)}
-                        className={`text-lg font-medium tracking-wider transition-colors duration-300 ${
-                          isActive ? "text-[#e84855]" : "text-gray-300 hover:text-[#e84855]"
+                        className={`font-mono text-lg uppercase tracking-wider transition-colors duration-300 ${
+                          isActive ? "text-foreground" : "text-muted hover:text-foreground"
                         }`}
                       >
                         {link.name}
@@ -245,7 +234,7 @@ export default function Navbar() {
                 initial="hidden"
                 animate="visible"
                 exit="exit"
-                className="absolute bottom-20 left-0 flex w-full justify-center gap-8 border-t border-[#e84855]/15 pt-6"
+                className="absolute bottom-20 left-0 flex w-full justify-center gap-8 border-t border-foreground/10 pt-6"
               >
                 {socialLinks.map((social) => (
                   <motion.a
@@ -257,7 +246,7 @@ export default function Navbar() {
                     target="_blank"
                     rel="noopener noreferrer"
                     onClick={() => setIsOpen(false)}
-                    className="text-2xl text-gray-400 transition-colors duration-300 hover:text-[#e84855] hover:drop-shadow-[0_0_8px_rgba(232,72,85,0.8)]"
+                    className="text-2xl text-muted transition-colors duration-300 hover:text-foreground"
                   >
                     {social.icon}
                   </motion.a>
