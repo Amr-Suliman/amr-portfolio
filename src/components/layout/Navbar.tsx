@@ -117,7 +117,7 @@ export default function Navbar() {
         transition={{ duration: 0.8 }}
         className="fixed left-0 top-0 z-50 w-full border-b border-foreground/10 bg-background/90 backdrop-blur-md"
       >
-        <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-6">
+        <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-4 sm:px-6">
           {/* Logo */}
           <Link href="/">
             <h1 className="text-2xl font-bold text-foreground">
@@ -133,15 +133,13 @@ export default function Navbar() {
                 <li key={link.name}>
                   <Link
                     href={link.href}
-                    className={`group relative pb-1 font-mono text-xs uppercase tracking-[1.5px] transition-colors duration-300 ${
-                      isActive ? "text-foreground" : "text-muted hover:text-foreground"
-                    }`}
+                    className={`group relative pb-1 font-mono text-xs uppercase tracking-[1.5px] transition-colors duration-300 ${isActive ? "text-foreground" : "text-muted hover:text-foreground"
+                      }`}
                   >
                     {link.name}
                     <span
-                      className={`absolute bottom-0 left-0 h-[1px] bg-foreground transition-all duration-300 ${
-                        isActive ? "w-full" : "w-0 group-hover:w-full"
-                      }`}
+                      className={`absolute bottom-0 left-0 h-[1px] bg-foreground transition-all duration-300 ${isActive ? "w-full" : "w-0 group-hover:w-full"
+                        }`}
                     />
                   </Link>
                 </li>
@@ -165,10 +163,10 @@ export default function Navbar() {
             ))}
           </div>
 
-          {/* Mobile Menu Button (Hamburger Icon) */}
+          {/* Mobile Menu Button */}
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="flex h-10 w-10 flex-col items-center justify-center gap-1.5 border border-foreground/15 text-foreground outline-none md:hidden"
+            className="flex h-10 w-10 flex-shrink-0 flex-col items-center justify-center gap-1.5 border border-foreground/15 text-foreground outline-none md:hidden"
             aria-label="Toggle Menu"
           >
             <motion.div
@@ -218,9 +216,8 @@ export default function Navbar() {
                       <Link
                         href={link.href}
                         onClick={() => setIsOpen(false)}
-                        className={`font-mono text-lg uppercase tracking-wider transition-colors duration-300 ${
-                          isActive ? "text-foreground" : "text-muted hover:text-foreground"
-                        }`}
+                        className={`font-mono text-lg uppercase tracking-wider transition-colors duration-300 ${isActive ? "text-foreground" : "text-muted hover:text-foreground"
+                          }`}
                       >
                         {link.name}
                       </Link>

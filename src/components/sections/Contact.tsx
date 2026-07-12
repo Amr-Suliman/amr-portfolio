@@ -98,25 +98,21 @@ export default function Contact() {
   ];
 
   return (
-    <section
-      id="contact"
-      className="relative min-h-screen overflow-hidden bg-[#0d0202] py-28"
-    >
-      {/* Background Glow */}
-      <div className="absolute left-[-150px] top-1/3 h-[450px] w-[450px] rounded-full bg-[#e84855]/20 blur-[160px]" />
-      <div className="absolute right-[-100px] bottom-0 h-[350px] w-[350px] rounded-full bg-[#e84855]/15 blur-[140px]" />
-
-      <div className="relative z-10 mx-auto max-w-6xl px-6">
-        {/* Title */}
+    <section id="contact" className="relative min-h-screen bg-background py-28">
+      <div className="mx-auto max-w-6xl px-6">
+        {/* Kicker + Title */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center"
         >
-          <p className="mb-3 tracking-[4px] text-[#e84855]">LET&apos;S CONNECT</p>
-          <h2 className="text-5xl font-bold text-white">Get In Touch</h2>
-          <div className="mx-auto mt-4 h-1 w-16 bg-[#e84855]" />
+          <p className="mb-3 font-mono text-[11px] uppercase tracking-[2px] text-muted sm:text-xs">
+            07 — Contact
+          </p>
+          <h2 className="text-3xl font-bold text-foreground sm:text-4xl md:text-5xl">
+            Get In Touch
+          </h2>
+          <div className="mt-4 h-[1px] w-16 bg-foreground/20" />
         </motion.div>
 
         <div className="mt-20 grid gap-12 md:grid-cols-2">
@@ -128,57 +124,41 @@ export default function Contact() {
             viewport={{ once: true }}
           >
             {/* status badge — mirrors the Hero */}
-            <div className="mb-6 inline-flex items-center gap-2 border border-[#e84855]/40 bg-[#e84855]/10 px-4 py-1.5 text-xs text-[#e84855] sm:text-sm">
-              <span className="h-2 w-2 animate-pulse rounded-full bg-[#e84855]" />
+            <div className="mb-6 inline-flex items-center gap-2 border border-accent/40 px-4 py-1.5 text-xs text-accent sm:text-sm">
+              <span className="h-2 w-2 animate-pulse rounded-full bg-accent" />
               Available for work
             </div>
 
-            <p className="max-w-md leading-7 text-gray-400">
+            <p className="max-w-md leading-7 text-muted">
               Let&apos;s collaborate! I&apos;m always open to discussing exciting
               projects, new ideas and opportunities.
             </p>
 
             <div className="mt-8 space-y-3">
-              <div className="flex items-center justify-between gap-4 border border-white/5 bg-white/[0.03] px-4 py-3.5 transition hover:border-red-500/30 hover:bg-white/[0.05]">
-                <div className="flex items-center gap-4 text-gray-300">
-                  <span className="flex h-9 w-9 items-center justify-center rounded-full bg-red-500/10 text-red-500">
-                    <FaEnvelope />
-                  </span>
-                  amrelgohary573@gmail.com
-                </div>
-                <button
-                  type="button"
-                  onClick={() => handleCopy("amrelgohary573@gmail.com", "email")}
-                  aria-label="Copy email"
-                  className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full text-gray-500 transition hover:bg-red-500/10 hover:text-red-400"
+              {contactRows.map((row) => (
+                <div
+                  key={row.key}
+                  className="flex items-center justify-between gap-4 bg-surface px-4 py-3.5 transition-colors duration-200 hover:bg-surface-alt"
                 >
-                  {copied === "email" ? <FaCheck className="text-red-500" /> : <FaRegCopy />}
-                </button>
-              </div>
+                  <div className="flex items-center gap-4 text-foreground/80">
+                    <span className="flex h-9 w-9 items-center justify-center border border-foreground/15 text-foreground/70">
+                      {row.icon}
+                    </span>
+                    {row.value}
+                  </div>
 
-              <div className="flex items-center justify-between gap-4 border border-white/5 bg-white/[0.03] px-4 py-3.5 transition hover:border-red-500/30 hover:bg-white/[0.05]">
-                <div className="flex items-center gap-4 text-gray-300">
-                  <span className="flex h-9 w-9 items-center justify-center rounded-full bg-red-500/10 text-red-500">
-                    <FaWhatsapp />
-                  </span>
-                  +20 120 600 5983
+                  {row.copyable && (
+                    <button
+                      type="button"
+                      onClick={() => handleCopy(row.copyValue ?? row.value, row.key)}
+                      aria-label={`Copy ${row.value}`}
+                      className="flex h-8 w-8 flex-shrink-0 items-center justify-center text-muted transition-colors duration-200 hover:text-foreground"
+                    >
+                      {copied === row.key ? <FaCheck className="text-accent" /> : <FaRegCopy />}
+                    </button>
+                  )}
                 </div>
-                <button
-                  type="button"
-                  onClick={() => handleCopy("+201206005983", "phone")}
-                  aria-label="Copy phone number"
-                  className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full text-gray-500 transition hover:bg-red-500/10 hover:text-red-400"
-                >
-                  {copied === "phone" ? <FaCheck className="text-red-500" /> : <FaRegCopy />}
-                </button>
-              </div>
-
-              <div className="flex items-center gap-4 border border-white/5 bg-white/[0.03] px-4 py-3.5 text-gray-300">
-                <span className="flex h-9 w-9 items-center justify-center rounded-full bg-red-500/10 text-red-500">
-                  <FaMapMarkerAlt />
-                </span>
-                Egypt
-              </div>
+              ))}
             </div>
 
             {/* socials */}
@@ -190,14 +170,14 @@ export default function Contact() {
                   target="_blank"
                   rel="noreferrer"
                   aria-label={item.label}
-                  className="flex h-12 w-12 items-center justify-center rounded-full border border-[#e84855]/30 bg-black/40 text-xl text-gray-300 transition hover:scale-110 hover:border-[#e84855] hover:text-[#e84855] hover:shadow-[0_0_25px_rgba(232,72,85,0.5)]"
+                  className="flex h-12 w-12 items-center justify-center border border-foreground/20 text-xl text-muted transition-colors duration-200 hover:border-foreground hover:text-foreground"
                 >
                   {item.icon}
                 </a>
               ))}
             </div>
 
-            <p className="mt-6 text-xs text-gray-500">
+            <p className="mt-6 text-xs text-muted">
               Usually responds within 24 hours.
             </p>
           </motion.div>
@@ -209,7 +189,7 @@ export default function Contact() {
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.7 }}
             viewport={{ once: true }}
-            className="border border-[#e84855]/20 bg-black/40 p-8 shadow-[0_0_40px_rgba(232,72,85,0.15)] backdrop-blur-xl"
+            className="bg-surface p-8 shadow-[0_20px_40px_-28px_rgba(0,0,0,0.5)]"
           >
             <input
               type="text"
@@ -218,7 +198,7 @@ export default function Contact() {
               onChange={handleChange}
               required
               placeholder="Your Name"
-              className="mb-5 w-full border border-[#e84855]/20 bg-black/60 px-5 py-4 text-white outline-none placeholder:text-gray-500 focus:border-[#e84855]"
+              className="mb-5 w-full border border-foreground/15 bg-background px-5 py-4 text-foreground outline-none placeholder:text-muted transition-colors focus:border-foreground"
             />
 
             <input
@@ -228,7 +208,7 @@ export default function Contact() {
               onChange={handleChange}
               required
               placeholder="Your Email"
-              className="mb-5 w-full border border-[#e84855]/20 bg-black/60 px-5 py-4 text-white outline-none placeholder:text-gray-500 focus:border-[#e84855]"
+              className="mb-5 w-full border border-foreground/15 bg-background px-5 py-4 text-foreground outline-none placeholder:text-muted transition-colors focus:border-foreground"
             />
 
             <textarea
@@ -238,21 +218,22 @@ export default function Contact() {
               required
               placeholder="Your Message"
               rows={5}
-              className="mb-6 w-full resize-none border border-[#e84855]/20 bg-black/60 px-5 py-4 text-white outline-none placeholder:text-gray-500 focus:border-[#e84855]"
+              className="mb-6 w-full resize-none border border-foreground/15 bg-background px-5 py-4 text-foreground outline-none placeholder:text-muted transition-colors focus:border-foreground"
             />
 
             <button
               type="submit"
               disabled={status.loading}
-              className="border border-[#e84855] bg-[#e84855]/10 px-8 py-3 font-semibold text-[#e84855] transition hover:text-white hover:shadow-[0_0_30px_rgba(232,72,85,0.5)] disabled:cursor-not-allowed disabled:opacity-50"
+              className="border border-accent bg-accent/10 px-8 py-3 font-semibold text-accent transition-colors duration-200 hover:bg-accent hover:text-background disabled:cursor-not-allowed disabled:opacity-50"
             >
               {status.loading ? "SENDING..." : "SEND MESSAGE"}
             </button>
 
             {status.message && (
               <p
-                className={`mt-4 text-sm font-medium ${status.success ? "text-green-400" : "text-red-400"
-                  }`}
+                className={`mt-4 text-sm font-medium ${
+                  status.success ? "text-accent" : "text-foreground"
+                }`}
               >
                 {status.message}
               </p>

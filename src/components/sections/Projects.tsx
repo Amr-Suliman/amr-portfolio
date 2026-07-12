@@ -10,7 +10,7 @@ const projects: {
   title: string;
   description: string;
   image: string;
-  url: string; // displayed in the browser address bar
+  url: string;
   tags: string[];
   demo: string;
   github: string;
@@ -53,13 +53,33 @@ const projects: {
 
 function StatusBadge({ status }: { status: Status }) {
   const config = {
-    live: { label: "LIVE", dot: "bg-[#e84855]", pulse: true, text: "text-[#e84855]", border: "border-[#e84855]/40", bg: "bg-[#e84855]/10" },
-    "in-progress": { label: "IN PROGRESS", dot: "bg-[#ffb020]", pulse: false, text: "text-[#ffb020]", border: "border-[#ffb020]/30", bg: "bg-[#ffb020]/10" },
-    "coming-soon": { label: "COMING SOON", dot: "bg-gray-500", pulse: false, text: "text-gray-400", border: "border-white/10", bg: "bg-white/5" },
+    live: {
+      label: "LIVE",
+      dot: "bg-accent",
+      pulse: true,
+      text: "text-accent",
+      border: "border-accent/40",
+    },
+    "in-progress": {
+      label: "IN PROGRESS",
+      dot: "bg-foreground/60",
+      pulse: false,
+      text: "text-foreground/80",
+      border: "border-foreground/20",
+    },
+    "coming-soon": {
+      label: "COMING SOON",
+      dot: "bg-muted",
+      pulse: false,
+      text: "text-muted",
+      border: "border-foreground/10",
+    },
   }[status];
 
   return (
-    <span className={`inline-flex items-center gap-1.5 border ${config.border} ${config.bg} px-2.5 py-1 text-[10px] font-medium tracking-wide ${config.text}`}>
+    <span
+      className={`inline-flex items-center gap-1.5 border ${config.border} px-2.5 py-1 text-[10px] font-medium tracking-wide ${config.text}`}
+    >
       <span className={`h-1.5 w-1.5 rounded-full ${config.dot} ${config.pulse ? "animate-pulse" : ""}`} />
       {config.label}
     </span>
@@ -77,28 +97,28 @@ function BrowserFrame({
   title: string;
 }) {
   return (
-    <div className="overflow-hidden border-b border-white/5">
+    <div className="overflow-hidden border-b border-foreground/10">
       {/* top bar */}
-      <div className="flex items-center gap-3 bg-[#0a0101] px-4 py-2.5">
+      <div className="flex items-center gap-3 bg-background px-4 py-2.5">
         <div className="flex gap-1.5">
-          <span className="h-2.5 w-2.5 rounded-full bg-[#e84855]/60" />
-          <span className="h-2.5 w-2.5 rounded-full bg-[#ffb020]/60" />
-          <span className="h-2.5 w-2.5 rounded-full bg-white/20" />
+          <span className="h-2.5 w-2.5 rounded-full bg-[#ff5f57]" />
+          <span className="h-2.5 w-2.5 rounded-full bg-[#febc2e]" />
+          <span className="h-2.5 w-2.5 rounded-full bg-[#28c840]" />
         </div>
-        <div className="flex-1 truncate rounded-sm bg-white/5 px-3 py-1 text-center font-mono text-[10px] text-gray-500 sm:text-[11px]">
+        <div className="flex-1 truncate rounded-sm border border-foreground/10 px-3 py-1 text-center font-mono text-[10px] text-muted sm:text-[11px]">
           {url}
         </div>
       </div>
 
-      {/* screenshot */}
+      {/* screenshot — full color, this is the real proof of work */}
       <div className="group relative h-48 overflow-hidden sm:h-52">
         <Image
           src={image}
           alt={title}
           fill
-          className="object-cover object-top transition duration-500 group-hover:scale-110"
+          className="object-cover object-top transition duration-500 group-hover:scale-105"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-background/50 to-transparent" />
       </div>
     </div>
   );
@@ -106,25 +126,22 @@ function BrowserFrame({
 
 export default function Projects() {
   return (
-    <section
-      id="projects"
-      className="relative min-h-screen overflow-hidden bg-[#0d0202] py-28"
-    >
-      {/* background glow */}
-      <div className="absolute right-0 top-20 h-[400px] w-[400px] rounded-full bg-[#e84855]/20 blur-[150px]" />
-
-      <div className="relative z-10 mx-auto max-w-7xl px-6">
-        {/* TITLE */}
+    <section id="projects" className="relative min-h-screen bg-background py-28">
+      <div className="mx-auto max-w-7xl px-6">
+        {/* Kicker + Title */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7 }}
           viewport={{ once: true }}
-          className="text-center"
         >
-          <p className="mb-3 tracking-[4px] text-[#e84855]">FEATURED WORK</p>
-          <h2 className="text-5xl font-bold text-white">My Projects</h2>
-          <div className="mx-auto mt-4 h-1 w-16 bg-[#e84855]" />
+          <p className="mb-3 font-mono text-[11px] uppercase tracking-[2px] text-muted sm:text-xs">
+            06 — Projects
+          </p>
+          <h2 className="text-3xl font-bold text-foreground sm:text-4xl md:text-5xl">
+            My Projects
+          </h2>
+          <div className="mt-4 h-[1px] w-16 bg-foreground/20" />
         </motion.div>
 
         {/* CARDS */}
@@ -136,27 +153,25 @@ export default function Projects() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: index * 0.15 }}
               viewport={{ once: true }}
-              className="group overflow-hidden border border-[#e84855]/20 bg-black/40 backdrop-blur-xl transition-all duration-300 hover:-translate-y-3 hover:border-[#e84855]/60 hover:shadow-[0_0_35px_rgba(232,72,85,0.25)]"
+              className="overflow-hidden bg-surface shadow-[0_20px_40px_-28px_rgba(0,0,0,0.5)] transition-all duration-300 hover:-translate-y-1 hover:bg-surface-alt hover:shadow-[0_30px_50px_-20px_rgba(0,0,0,0.6)]"
             >
               <BrowserFrame url={project.url} image={project.image} title={project.title} />
 
               {/* CONTENT */}
               <div className="p-6">
                 <div className="mb-3 flex items-center justify-between gap-3">
-                  <h3 className="text-xl font-bold text-white">{project.title}</h3>
+                  <h3 className="text-xl font-bold text-foreground">{project.title}</h3>
                   <StatusBadge status={project.status} />
                 </div>
 
-                <p className="mb-5 text-sm leading-6 text-gray-400">
-                  {project.description}
-                </p>
+                <p className="mb-5 text-sm leading-6 text-muted">{project.description}</p>
 
                 {/* TAGS */}
                 <div className="mb-6 flex flex-wrap gap-2">
                   {project.tags.map((tag) => (
                     <span
                       key={tag}
-                      className="border border-[#e84855]/30 bg-[#e84855]/10 px-3 py-1 text-xs text-[#e84855]/90"
+                      className="border border-foreground/15 px-3 py-1 text-xs text-foreground/70"
                     >
                       {tag}
                     </span>
@@ -170,7 +185,7 @@ export default function Projects() {
                     target={project.demo !== "#" ? "_blank" : undefined}
                     rel="noreferrer"
                     aria-disabled={project.demo === "#"}
-                    className={`flex items-center gap-2 border border-[#e84855]/50 px-4 py-2 text-sm text-[#e84855] transition hover:bg-[#e84855] hover:text-white ${
+                    className={`flex items-center gap-2 border border-foreground/25 px-4 py-2 text-sm text-foreground transition-colors duration-200 hover:bg-foreground hover:text-background ${
                       project.demo === "#" ? "pointer-events-none opacity-40" : ""
                     }`}
                   >
@@ -183,7 +198,7 @@ export default function Projects() {
                     target={project.github !== "#" ? "_blank" : undefined}
                     rel="noreferrer"
                     aria-disabled={project.github === "#"}
-                    className={`flex items-center gap-2 border border-white/10 px-4 py-2 text-sm text-gray-300 transition hover:border-white/40 hover:text-white ${
+                    className={`flex items-center gap-2 border border-foreground/10 px-4 py-2 text-sm text-muted transition-colors duration-200 hover:border-foreground/40 hover:text-foreground ${
                       project.github === "#" ? "pointer-events-none opacity-40" : ""
                     }`}
                   >

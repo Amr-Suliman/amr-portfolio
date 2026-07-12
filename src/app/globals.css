@@ -11,6 +11,14 @@
   --surface-alt: #232220;
 
   --border: rgba(237, 233, 224, 0.08);
+
+  /* accent for the contact form's submit button */
+  --accent: #9b9686;
+  --accent-hover: #b7b2a1;
+
+  /* separate accent for the CV download button */
+  --accent-cv: #2b2b2b;
+  --accent-cv-hover: #494949;
 }
 
 @theme inline {
@@ -23,6 +31,12 @@
   --color-surface: var(--surface);
   --color-surface-alt: var(--surface-alt);
   --color-border: var(--border);
+
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+
+  --color-accent-cv: var(--accent-cv);
+  --color-accent-cv-hover: var(--accent-cv-hover);
 
   /* Tailwind v4 font definitions - linked to next/font variables */
   --font-space: var(--font-space-grotesk), sans-serif;
@@ -142,16 +156,4 @@ img {
 button,
 a {
   -webkit-tap-highlight-color: transparent;
-}
-
-:root {
-  /* ...existing variables... */
-  --accent: #2b2b2b;
-  --accent-hover: #2a6650;
-}
-
-@theme inline {
-  /* ...existing... */
-  --color-accent: var(--accent);
-  --color-accent-hover: var(--accent-hover);
 }

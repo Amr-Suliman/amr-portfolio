@@ -104,79 +104,78 @@ export default function Hero() {
               interactions that feel intentional.
             </motion.p>
 
-           {/* CTA */}
-{/* CTA */}
-<motion.div variants={itemVariants} className="mt-9 flex flex-row gap-4">
-  <a
-    href="/resume/Amr-ElGohary-CV.pdf"
-    download
-    className="inline-flex h-12 flex-1 items-center justify-center whitespace-nowrap bg-accent px-6 text-sm font-semibold text-foreground transition-colors duration-200 hover:bg-accent-hover sm:h-14 sm:min-w-[220px] sm:flex-none sm:px-12 sm:text-base"
-  >
-    Download CV
-  </a>
+            {/* CTA */}
+            <motion.div variants={itemVariants} className="mt-9 flex flex-row gap-4">
+              <a
+                href="/resume/Amr-ElGohary-CV.pdf"
+                download
+                className="inline-flex h-12 flex-1 items-center justify-center whitespace-nowrap bg-accent-cv px-6 text-sm font-semibold text-foreground transition-colors duration-200 hover:bg-accent-cv-hover sm:h-14 sm:min-w-[220px] sm:flex-none sm:px-12 sm:text-base"
+              >
+                Download CV
+              </a>
 
-  <a
-    href="#projects"
-    className="inline-flex h-12 flex-1 items-center justify-center whitespace-nowrap border border-foreground/20 px-6 text-sm font-semibold text-foreground transition-colors duration-200 hover:border-accent hover:text-accent sm:h-14 sm:min-w-[180px] sm:flex-none sm:px-10 sm:text-base"
-  >
-    View Projects
-  </a>
-</motion.div>
+              <a
+                href="#projects"
+                className="inline-flex h-12 flex-1 items-center justify-center whitespace-nowrap border border-foreground/20 px-6 text-sm font-semibold text-foreground transition-colors duration-200 hover:border-accent hover:text-accent sm:h-14 sm:min-w-[180px] sm:flex-none sm:px-10 sm:text-base"
+              >
+                View Projects
+              </a>
+            </motion.div>
 
-        {/* Socials */}
-        <motion.div variants={itemVariants} className="mt-9 flex gap-5 sm:mt-11">
-          {socials.map(({ href, icon, label }) => (
-            <a
-              key={label}
-              href={href}
-              target={href.startsWith("http") ? "_blank" : undefined}
-              rel="noreferrer"
-              aria-label={label}
-              className="text-lg text-muted transition-colors duration-200 hover:text-foreground"
-            >
-              {icon}
-            </a>
-          ))}
-        </motion.div>
-      </motion.div>
+            {/* Socials */}
+            <motion.div variants={itemVariants} className="mt-9 flex gap-5 sm:mt-11">
+              {socials.map(({ href, icon, label }) => (
+                <a
+                  key={label}
+                  href={href}
+                  target={href.startsWith("http") ? "_blank" : undefined}
+                  rel="noreferrer"
+                  aria-label={label}
+                  className="text-lg text-muted transition-colors duration-200 hover:text-foreground"
+                >
+                  {icon}
+                </a>
+              ))}
+            </motion.div>
+          </motion.div>
 
-      {/* RIGHT — single unified spec-sheet object */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 0.3 }}
-        className="md:items-start"
-      >
-        <div className="w-full max-w-[320px] border border-foreground/15">
-          {/* photo */}
-          <div className="relative aspect-[4/5] w-full overflow-hidden">
-            <Image
-              src="/images/profile/amr.jpg"
-              alt="Amr ElGohary"
-              fill
-              className="object-cover grayscale"
-              priority
-            />
-          </div>
+          {/* RIGHT — single unified spec-sheet object */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.3 }}
+            className="md:items-start"
+          >
+            <div className="w-full max-w-[320px] border border-foreground/15">
+              {/* photo */}
+              <div className="relative aspect-[4/5] w-full overflow-hidden">
+                <Image
+                  src="/images/profile/amr.jpg"
+                  alt="Amr ElGohary"
+                  fill
+                  className="object-cover"
+                  priority
+                />
+              </div>
 
-          {/* caption + stack, same object as the photo */}
-          <div className="border-t border-foreground/10 p-4">
-            <p className="mb-3 font-mono text-[10px] uppercase tracking-[1.5px] text-muted">
-              Amr — Frontend Developer
-            </p>
+              {/* caption + stack, same object as the photo */}
+              <div className="border-t border-foreground/10 p-4">
+                <p className="mb-3 font-mono text-[10px] uppercase tracking-[1.5px] text-muted">
+                  Amr — Frontend Developer
+                </p>
 
-          </div>
+              </div>
+            </div>
+          </motion.div>
         </div>
-      </motion.div>
-    </div>
       </div >
 
-    {/* Scroll indicator */ }
-    <motion.div
-  className = "absolute bottom-6 left-1/2 z-10 hidden -translate-x-1/2 flex-col items-center gap-2 sm:flex"
-  animate = {{ opacity: [1, 0.4, 1] }
-}
-transition = {{ duration: 2.4, repeat: Infinity }}
+      {/* Scroll indicator */}
+      <motion.div
+        className="absolute bottom-6 left-1/2 z-10 hidden -translate-x-1/2 flex-col items-center gap-2 sm:flex"
+        animate={{ opacity: [1, 0.4, 1] }
+        }
+        transition={{ duration: 2.4, repeat: Infinity }}
       >
         <span className="font-mono text-[10px] uppercase tracking-[3px] text-muted">Scroll</span>
         <div className="h-8 w-[1px] bg-foreground/20" />

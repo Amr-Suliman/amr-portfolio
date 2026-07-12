@@ -40,15 +40,15 @@ const experiences = [
 function StatusBadge({ status }: { status: "completed" | "active" }) {
   if (status === "active") {
     return (
-      <span className="inline-flex items-center gap-1.5 border border-foreground/25 px-2.5 py-1 text-[10px] font-medium tracking-wide text-foreground transition-colors duration-300 group-hover:border-background/25 group-hover:text-background sm:text-[11px]">
-        <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-foreground transition-colors duration-300 group-hover:bg-background" />
+      <span className="inline-flex items-center gap-1.5 border border-accent/40 px-2.5 py-1 text-[10px] font-medium tracking-wide text-accent sm:text-[11px]">
+        <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-accent" />
         ACTIVE
       </span>
     );
   }
   return (
-    <span className="inline-flex items-center gap-1.5 border border-foreground/10 px-2.5 py-1 text-[10px] font-medium tracking-wide text-muted transition-colors duration-300 group-hover:border-background/15 group-hover:text-background/50 sm:text-[11px]">
-      <span className="h-1.5 w-1.5 rounded-full bg-muted transition-colors duration-300 group-hover:bg-background/50" />
+    <span className="inline-flex items-center gap-1.5 border border-foreground/10 px-2.5 py-1 text-[10px] font-medium tracking-wide text-muted sm:text-[11px]">
+      <span className="h-1.5 w-1.5 rounded-full bg-muted" />
       COMPLETED
     </span>
   );
@@ -83,29 +83,21 @@ function TimelineItem({
       </motion.div>
 
       {/* Card */}
-      <div className="group bg-[rgb(229,224,213)] p-7 shadow-[0_20px_40px_-28px_rgba(26,26,26,0.1)] transition-colors duration-300 hover:bg-foreground">
+      <div className="bg-surface p-7 shadow-[0_20px_40px_-28px_rgba(0,0,0,0.5)] transition-all duration-300 hover:-translate-y-1 hover:bg-surface-alt hover:shadow-[0_30px_50px_-20px_rgba(0,0,0,0.6)]">
         <div className="flex flex-wrap items-center justify-between gap-3">
-          <span className="text-sm text-foreground transition-colors duration-300 group-hover:text-background">
-            {item.date}
-          </span>
+          <span className="text-sm text-foreground">{item.date}</span>
           <StatusBadge status={item.status} />
         </div>
 
-        <h3 className="mt-3 text-2xl font-bold text-foreground transition-colors duration-300 group-hover:text-background">
-          {item.title}
-        </h3>
-        <p className="text-muted transition-colors duration-300 group-hover:text-background/60">
-          {item.company}
-        </p>
-        <p className="mt-4 leading-7 text-muted transition-colors duration-300 group-hover:text-background/60">
-          {item.description}
-        </p>
+        <h3 className="mt-3 text-2xl font-bold text-foreground">{item.title}</h3>
+        <p className="text-muted">{item.company}</p>
+        <p className="mt-4 leading-7 text-muted">{item.description}</p>
 
         <div className="mt-6 flex flex-wrap gap-2">
           {item.skills.map((skill) => (
             <span
               key={skill}
-              className="border border-foreground/15 px-3 py-1 text-xs text-foreground/80 transition-colors duration-300 group-hover:border-background/20 group-hover:text-background/80"
+              className="border border-foreground/15 px-3 py-1 text-xs text-foreground/80"
             >
               {skill}
             </span>
